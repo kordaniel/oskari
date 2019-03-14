@@ -1,5 +1,5 @@
 ### Heroku-url:
-[https://oskari.herokuapp.com/]
+[Oskari running here..](https://oskari.herokuapp.com/ "on heroku")
 
 # Oskari
 
