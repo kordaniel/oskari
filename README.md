@@ -5,7 +5,7 @@
 
 Oskari on sovellus, joka pitää kirjaa rekisteröityneiden käyttäjien tekemistä osakekaupoista. Käyttäjillä on aina vähintään yksi salkku, minne he voivat kirjata tekemiään kauppoja (ostoja sekä myyntejä). Käyttäjä voi ainoastaan kirjata myyntejä sellaisista osakkeista joita hän omistaa. Käyttäjällä voi olla useita salkkuja. Käyttäjälle lasketaan erilaisia yhteenvetoja.
 
-CRUD-tauluja ovat siis (ainakin) käyttäjä ja salkku. Nämä myös aina liittyvät toisiinsa. Tietokantataulun lisään kunhan olen päässyt käymään pajassa, niinkuin sovittiin TG:ssä ohjaajan kanssa.
+CRUD-tauluja ovat siis (ainakin) käyttäjä ja salkku. Nämä myös aina liittyvät toisiinsa. **Tietokantakaavion** lisään kunhan olen päässyt käymään pajassa, niinkuin sovittiin TG:ssä ohjaajan kanssa.
 
 
 ## Toimintoja
