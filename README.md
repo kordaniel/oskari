@@ -51,8 +51,9 @@ Oskari on sovellus, joka pitää kirjaa rekisteröityneiden käyttäjien tekemis
 
 ### Mahdollisia lisäominaisuuksia
 * Käyttäjät voivat muodostaa suljettua ryhmiä. Tällöin he voisivat nähdä kaikki tiedot toistensa salkuista. Voisivat myös käydä keskusteluja keskenään.
-* Osakkeille voi lisätä kommentteja, joko niin että kaikki kommentit ovat avoimia kaikilli tai sitten tietyille ryhmille tai käyttäjän yksityisiä kommentteja
+* Osakkeille voi lisätä kommentteja, joko niin että kaikki kommentit ovat avoimia kaikille tai sitten tietyille ryhmille tai käyttäjän yksityisiä kommentteja
 * Käyttäjä voi piilottaa salkkunsa niin että sitä ei näy missään listassa
-* Lisätä eri pörssejä (eri valuutat) joihin yksittäinen osake aina kuuluui
+* Lisätä eri pörssejä (eri valuutat) joihin yksittäinen osake aina kuuluu
 * Osakkeille osingot ja niiden huomioiminen salkuissa
 * Käyttäjän kaikkien erillisten salkkujen yhteenveto
+* Käyttäjät lisäävät ensin tiedon omiin tietoihinsa, paljonko heillä on toteutuneita tappioita, jolloin sovellus voi laskea tulevien verojen määrää
