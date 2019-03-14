@@ -1,6 +1,8 @@
 # Oskari
 
-Oskari on sovellus, joka pitää kirjaa rekisteröityneiden käyttäjien tekemistä osakekaupoista. Käyttäjillä on aina vähintään yksi salkku, minne he voivat kirjata tekemiään kauppoja (ostoja sekä myyntejä). Käyttäjä voi ainoastaan kirjata myyntejä sellaisista osakkeista joita hän omistaa. Käyttäjällä voi olla useita salkkuja. Käyttäjälle lasketaan erilaisia yhteenvetoja. Aluksi 
+Oskari on sovellus, joka pitää kirjaa rekisteröityneiden käyttäjien tekemistä osakekaupoista. Käyttäjillä on aina vähintään yksi salkku, minne he voivat kirjata tekemiään kauppoja (ostoja sekä myyntejä). Käyttäjä voi ainoastaan kirjata myyntejä sellaisista osakkeista joita hän omistaa. Käyttäjällä voi olla useita salkkuja. Käyttäjälle lasketaan erilaisia yhteenvetoja.
+
+CRUD-tauluja ovat siis (ainakin) käyttäjä ja salkku. Nämä myös aina liittyvät toisiinsa. Tietokantataulun lisään kunhan olen päässyt käymään pajassa, niinkuin sovittiin TG:ssä ohjaajan kanssa.
 
 
 ## Toimintoja
@@ -21,13 +23,13 @@ Oskari on sovellus, joka pitää kirjaa rekisteröityneiden käyttäjien tekemis
   * Lisätä osakkeita järjestelmään (jos jää aikaa, niin tämä voidaan korvata sopivalla API:lla)
   * Hallita omia tietoja
 * Ylläpitäjät voivat
-  * Hallita käyttäjiä
+  * Hallita käyttäjiä (muokata sekä poistaa)
   * Poistaa osakkeita järjestelmästä
 
 ### Salkku
 * Salkku kuuuluu aina tietylle käyttäjälle
-* Käyttäjällä voi olla useita sekä voi myös poistaa salkkuja
-* Salkulle voi antaa nimen
+* Käyttäjällä voi olla useita sekä hän voi myös poistaa salkkuja
+* Salkulla on nimi
 * Käyttäjä voi kirjata ostoja
 * Käyttäjä voi nähdä mitä osakkeita hän omistaa kyseisenä hetkenä sekä näiden osakkeiden määrän ja ostotapahtuman tiedot salkuittain.
   * Per kauppa
@@ -46,14 +48,14 @@ Oskari on sovellus, joka pitää kirjaa rekisteröityneiden käyttäjien tekemis
 
 ### Lisäksi ei rekisteröityneet vierailijat voivat:
 * Selata osakelistaa
-  * Osaketta klikatessa nähdään lista salkuista jotka omistavat kyseistä osaketta
+  * Osaketta klikatessa nähdään listan salkuista jotka omistavat kyseistä osaketta
 * Selata anonymisoitua salkkulistaa (listaa kaikista salkuista) sekä avata yksittäisiä salkkuja
 
 ### Mahdollisia lisäominaisuuksia
-* Käyttäjät voivat muodostaa suljettua ryhmiä. Tällöin he voisivat nähdä kaikki tiedot toistensa salkuista. Voisivat myös käydä keskusteluja keskenään.
+* Käyttäjät voivat muodostaa suljettuja ryhmiä. Tällöin he voisivat nähdä kaikki tiedot toistensa salkuista. Voisivat myös käydä keskusteluja keskenään.
 * Osakkeille voi lisätä kommentteja, joko niin että kaikki kommentit ovat avoimia kaikille tai sitten tietyille ryhmille tai käyttäjän yksityisiä kommentteja
 * Käyttäjä voi piilottaa salkkunsa niin että sitä ei näy missään listassa
 * Lisätä eri pörssejä (eri valuutat) joihin yksittäinen osake aina kuuluu
 * Osakkeille osingot ja niiden huomioiminen salkuissa
 * Käyttäjän kaikkien erillisten salkkujen yhteenveto
-* Käyttäjät lisäävät ensin tiedon omiin tietoihinsa, paljonko heillä on toteutuneita tappioita, jolloin sovellus voi laskea tulevien verojen määrää
+* Käyttäjät lisäävät ensin tiedon omiin tietoihinsa, siitä paljonko heillä on toteutuneita tappioita, jolloin sovellus voi laskea tulevien verojen määrää
