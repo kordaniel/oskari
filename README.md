@@ -1,10 +1,12 @@
-#Oskari
+# Oskari
 
 Oskari on sovellus, joka pitää kirjaa rekisteröityneiden käyttäjien tekemistä osakekaupoista. Käyttäjillä on aina vähintään yksi salkku, minne he voivat kirjata tekemiään kauppoja (ostoja sekä myyntejä). Käyttäjä voi ainoastaan kirjata myyntejä sellaisista osakkeista joita hän omistaa.
 
 
-### Toimintoja
-#### Käyttäjäprofiilit
+## Toimintoja
+* Sovellukseen voi lisätä osakkeita, joilla on attribuutit nimi sekä ticker (uniikki lyhenne)
+
+### Käyttäjäprofiilit
 * Ylläpitäjä
 * Käyttäjä
 
@@ -22,9 +24,9 @@ Oskari on sovellus, joka pitää kirjaa rekisteröityneiden käyttäjien tekemis
   * Hallita käyttäjiä
   * Poistaa osakkeita järjestelmästä
 
-* Sovellukseen voi lisätä osakkeita joilla on attribuutit Nimi sekä tickeri(uniikki lyhenne)
-
-#### Salkku
+### Salkku
+* Salkku kuuuluu aina tietylle käyttäjälle
+* Käyttäjällä voi olla useita sekä voi myös poistaa salkkuja
 * Salkulle voi antaa nimen
 * Käyttäjä voi kirjata ostoja
 * Käyttäjä voi nähdä mitä osakkeita hän omistaa kyseisenä hetkenä sekä näiden osakkeiden määrän ja ostotapahtuman tiedot salkuittain.
@@ -36,7 +38,7 @@ Oskari on sovellus, joka pitää kirjaa rekisteröityneiden käyttäjien tekemis
 * Käyttäjä voi rajata tapahtumia tietylle aikavälille
   * Etenkin nähdä kalenterivuoden ajanjakson tuloksen(voitto/tappio)
 
-#### Kauppatapahtuma koostuu seuraavista tiedoista:
+### Kauppatapahtuma koostuu seuraavista tiedoista:
 * Osakelaji (yritys)
 * Lukumäärä
 * Aika
@@ -46,3 +48,6 @@ Oskari on sovellus, joka pitää kirjaa rekisteröityneiden käyttäjien tekemis
 * Selata osakelistaa
   * Osaketta klikatessa nähdään lista salkuista jotka omistavat kyseistä osaketta
 * Selata anonymisoitua salkkulistaa (listaa kaikista salkuista) sekä avata yksittäisiä salkkuja
+
+### Mahdollisia ominaisuuksia
+* Käyttäjä voi piilottaa salkkunsa niin että sitä ei näy missään
