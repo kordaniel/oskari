@@ -50,4 +50,7 @@ Oskari on sovellus, joka pitää kirjaa rekisteröityneiden käyttäjien tekemis
 * Selata anonymisoitua salkkulistaa (listaa kaikista salkuista) sekä avata yksittäisiä salkkuja
 
 ### Mahdollisia ominaisuuksia
-* Käyttäjä voi piilottaa salkkunsa niin että sitä ei näy missään
+* Käyttäjä voi piilottaa salkkunsa niin että sitä ei näy missään listassa
+* Lisätä eri pörssejä (eri valuutat) joihin yksittäinen osake aina kuuluui
+* Osakkeille osingot ja niiden huomioiminen salkuissa
+* Käyttäjän kaikkien erillisten salkkujen yhteenveto
