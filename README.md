@@ -1,3 +1,6 @@
+### Heroku-url:
+[https://oskari.herokuapp.com/]
+
 # Oskari
 
 Oskari on sovellus, joka pitää kirjaa rekisteröityneiden käyttäjien tekemistä osakekaupoista. Käyttäjillä on aina vähintään yksi salkku, minne he voivat kirjata tekemiään kauppoja (ostoja sekä myyntejä). Käyttäjä voi ainoastaan kirjata myyntejä sellaisista osakkeista joita hän omistaa. Käyttäjällä voi olla useita salkkuja. Käyttäjälle lasketaan erilaisia yhteenvetoja.
