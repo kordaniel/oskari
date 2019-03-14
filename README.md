@@ -1,6 +1,6 @@
 # Oskari
 
-Oskari on sovellus, joka pitää kirjaa rekisteröityneiden käyttäjien tekemistä osakekaupoista. Käyttäjillä on aina vähintään yksi salkku, minne he voivat kirjata tekemiään kauppoja (ostoja sekä myyntejä). Käyttäjä voi ainoastaan kirjata myyntejä sellaisista osakkeista joita hän omistaa.
+Oskari on sovellus, joka pitää kirjaa rekisteröityneiden käyttäjien tekemistä osakekaupoista. Käyttäjillä on aina vähintään yksi salkku, minne he voivat kirjata tekemiään kauppoja (ostoja sekä myyntejä). Käyttäjä voi ainoastaan kirjata myyntejä sellaisista osakkeista joita hän omistaa. Käyttäjällä voi olla useita salkkuja. Käyttäjälle lasketaan erilaisia yhteenvetoja. Aluksi 
 
 
 ## Toimintoja
@@ -14,7 +14,7 @@ Oskari on sovellus, joka pitää kirjaa rekisteröityneiden käyttäjien tekemis
   * Nimi
   * Tunnus
   * Salasana
-  * sähköposti
+  * Sähköposti
 
 * Käyttäjät voivat
   * Luoda/poistaa salkkuja
@@ -34,7 +34,7 @@ Oskari on sovellus, joka pitää kirjaa rekisteröityneiden käyttäjien tekemis
   * Yhteenveto (osakelajeittain)
 * Käyttäjä voi myydä (osan) osakkeistaan
 * Käyttäjä voi tarkastella kauppahistoriaansa
-* Kauppa on "valmis", kun osake on myyty, silloin lasketaan tuotto (myynti ja ostohinnan erotus)
+* Kauppa on "valmis", kun osake on myyty, silloin lasketaan tuotto (myynti- ja ostohinnan erotus)
 * Käyttäjä voi rajata tapahtumia tietylle aikavälille
   * Etenkin nähdä kalenterivuoden ajanjakson tuloksen(voitto/tappio)
 
@@ -49,7 +49,9 @@ Oskari on sovellus, joka pitää kirjaa rekisteröityneiden käyttäjien tekemis
   * Osaketta klikatessa nähdään lista salkuista jotka omistavat kyseistä osaketta
 * Selata anonymisoitua salkkulistaa (listaa kaikista salkuista) sekä avata yksittäisiä salkkuja
 
-### Mahdollisia ominaisuuksia
+### Mahdollisia lisäominaisuuksia
+* Käyttäjät voivat muodostaa suljettua ryhmiä. Tällöin he voisivat nähdä kaikki tiedot toistensa salkuista. Voisivat myös käydä keskusteluja keskenään.
+* Osakkeille voi lisätä kommentteja, joko niin että kaikki kommentit ovat avoimia kaikilli tai sitten tietyille ryhmille tai käyttäjän yksityisiä kommentteja
 * Käyttäjä voi piilottaa salkkunsa niin että sitä ei näy missään listassa
 * Lisätä eri pörssejä (eri valuutat) joihin yksittäinen osake aina kuuluui
 * Osakkeille osingot ja niiden huomioiminen salkuissa
