@@ -1,5 +1,8 @@
 # VSCode files
-#.vscode/
+.vscode/
+
+# SQLite databases
+*.db
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
