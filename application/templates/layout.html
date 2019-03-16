@@ -6,6 +6,10 @@
   </head>
 
   <body>
+    <ul>
+      <li><a href="{{ url_for('stocks_index') }}">List stocks</a></li>
+      <li><a href="{{ url_for('stocks_form') }}">Add a stock</a></li>
+    </ul>
     {% block body %}
     <p>
       Content.
