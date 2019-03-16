@@ -1,10 +1,10 @@
 from application import app, db
-from flask import render_template, request
+from flask import redirect, render_template, request, url_for
 from application.stocks.models import Stock
 
-@app.route("/stocks/new")
-def stocks_form():
-    return render_template("stocks/new.html")
+@app.route("/stocks", methods=["GET"])
+def stocks_index():
+    return render_template("stocks/list.html", stocks = Stock.query.all())
 
 @app.route("/stocks", methods=["POST"])
 def stocks_create():
@@ -13,4 +13,8 @@ def stocks_create():
     db.session().add(s)
     db.session().commit()
 
-    return "All stocks live here"
+    return redirect(url_for("stocks_index"))
+
+@app.route("/stocks/new")
+def stocks_form():
+    return render_template("stocks/new.html")

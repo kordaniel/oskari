@@ -1,18 +1,18 @@
 {% extends "layout.html" %}
 
 {% block body %}
-<form method="POST" action="{{ url_for('stocks_create') }}">
-    <table>
-        <tr>
-            <th>Ticker</th>
-            <th>Full name</th>
-            <th></th>
-        </tr>
-        <tr>
-            <td><input type="text" name="ticker"/></td>
-            <td><input type="text" name="name"/></td>
-            <td><input type="submit" value="Add a new stock"/></td>
-        </tr>
-    </table>
-</form>
+    <form method="POST" action="{{ url_for('stocks_create') }}">
+        <table>
+            <tr>
+                <th>Ticker</th>
+                <th>Full name</th>
+                <th></th>
+            </tr>
+            <tr>
+                <td><input type="text" name="ticker"/></td>
+                <td><input type="text" name="name"/></td>
+                <td><input type="submit" value="Add a new stock"/></td>
+            </tr>
+        </table>
+    </form>
 {% endblock %}

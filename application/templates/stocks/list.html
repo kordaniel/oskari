@@ -1,0 +1,16 @@
+{% extends "layout.html" %}
+
+{% block body %}
+    <table>
+        <tr>
+            <th>Ticker</th>
+            <th>Full name</th>
+        </tr>
+        {% for stock in stocks %}
+        <tr>
+            <td>{{ stock.ticker }}</td>
+            <td>{{ stock.name }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+{% endblock %}
