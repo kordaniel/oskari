@@ -1,0 +1,21 @@
+{% extends "layout.html" %}
+
+{% block body %}
+    <h2>{{ s.name }}</h2>
+    <p>Ticker: {{ s.ticker }}</p>
+    <p><strong>Update</strong> '{{ s.name }}' entry values to:</p>
+    <form method="POST" action="{{ url_for('stocks_update', stock_id=s.id) }}">
+        <table>
+            <tr>
+                <th>Ticker</th>
+                <th>Full name</th>
+                <th></th>
+            </tr>
+            <tr>
+                <td><input type="text" name="ticker" value="{{ s.ticker }}"/></td>
+                <td><input type="text" name="name" value="{{ s.name }}"/></td>
+                <td><input type="submit" value="Update"/></td>
+            </tr>
+        </table>
+    </form>
+{% endblock %}

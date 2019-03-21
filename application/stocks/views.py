@@ -18,3 +18,15 @@ def stocks_create():
 @app.route("/stocks/new")
 def stocks_form():
     return render_template("stocks/new.html")
+
+@app.route("/stocks/<stock_id>", methods=["GET"])
+def stocks_view(stock_id):
+    return render_template("stocks/stock.html", s = Stock.query.get(stock_id))
+
+@app.route("/stocks/update/<stock_id>", methods=["POST"])
+def stocks_update(stock_id):
+    s = Stock.query.get(stock_id)
+    s.ticker = request.form.get("ticker")
+    s.name = request.form.get("name")
+    db.session().commit()
+    return redirect(url_for("stocks_index"))

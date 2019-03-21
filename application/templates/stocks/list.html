@@ -9,7 +9,9 @@
         {% for stock in stocks %}
         <tr>
             <td>{{ stock.ticker }}</td>
-            <td>{{ stock.name }}</td>
+            <td>
+                <a href="{{ url_for('stocks_view', stock_id=stock.id) }}">{{ stock.name }}</a>
+            </td>
         </tr>
         {% endfor %}
     </table>

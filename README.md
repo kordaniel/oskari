@@ -1,5 +1,5 @@
 ### Heroku-url:
-[Oskari running here..](https://oskari.herokuapp.com/ "on heroku")
+[Oskari herokussa](https://oskari.herokuapp.com/)
 
 # Oskari
 
@@ -14,6 +14,9 @@ Stock-taulussa on kaikkien tunnettujen yritysten tiedot, nimi sekä kaupankäynt
 ### Tietokantakaavio
 [kuva](https://github.com/kordaniel/oskari/tree/master/documentation/db/db_schema.jpg)  
 [yuml.me formatoitu dokumentti](https://github.com/kordaniel/oskari/tree/master/documentation/db/db_schema_yuml.txt)
+
+### Käyttäjätarinoita
+[Kaikki käyttäjät](https://github.com/kordaniel/oskari/tree/master/documentation/user_stories.md)
 
 ## Toimintoja
 * Sovellukseen voi lisätä osakkeita, joilla on attribuutit nimi sekä ticker (uniikki lyhenne)
@@ -32,6 +35,7 @@ Stock-taulussa on kaikkien tunnettujen yritysten tiedot, nimi sekä kaupankäynt
   * Luoda/poistaa salkkuja
   * Lisätä osakkeita järjestelmään (jos jää aikaa, niin tämä voidaan korvata sopivalla API:lla)
   * Hallita omia tietoja
+
 * Ylläpitäjät voivat
   * Hallita käyttäjiä (muokata sekä poistaa)
   * Poistaa osakkeita järjestelmästä
