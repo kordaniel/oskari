@@ -14,6 +14,8 @@ class User(db.Model):
     password = db.Column(db.String(80), nullable=False)
     email = db.Column(db.String(144), unique=True, nullable=False)
 
+    portfolios = db.relationship("Portfolio", backref="account", lazy=True)
+
     def __init__(self, name, username, password, email):
         self.name = name
         self.username = username

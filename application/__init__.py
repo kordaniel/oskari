@@ -4,7 +4,7 @@ app = Flask(__name__)
 
 # database
 from flask_sqlalchemy import SQLAlchemy
-app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///stocks.db"
+app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///data.db"
 app.config["SQLALCHEMY_ECHO"] = True
 
 db = SQLAlchemy(app)
@@ -12,11 +12,14 @@ db = SQLAlchemy(app)
 # app logic
 from application import views
 
+from application.auth import models
+from application.auth import views
+
 from application.stocks import models
 from application.stocks import views
 
-from application.auth import models
-from application.auth import views
+from application.portfolio import models
+from application.portfolio import views
 
 # authentication
 from application.auth.models import User

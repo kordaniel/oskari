@@ -1,0 +1,16 @@
+{% extends "layout.html" %}
+
+{% block body %}
+  <table>
+    <tr>
+      <th>User ID</th>
+      <th>Portfolio name</th>
+    </tr>
+    {% for portfolio in portfolios %}
+    <tr>
+      <td>{{ portfolio.account_id }}</td>
+      <td>{{ portfolio.name }}</td>
+    </tr>
+    {% endfor %}
+  </table>
+{% endblock %}

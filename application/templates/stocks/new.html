@@ -1,7 +1,7 @@
 {% extends "layout.html" %}
 
 {% block body %}
-<h2>Add new stock</h2>
+  <h3>Add new stock</h3>
   <form method="POST" action="{{ url_for('stocks_create') }}">
     <!-- form validation refuses to work, unless printing (empty) form.csrf_token here -->
       {{ form.csrf_token }}

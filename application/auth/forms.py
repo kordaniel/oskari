@@ -5,11 +5,11 @@ from application.auth.models import User
 class LoginForm(FlaskForm):
     username = StringField("Username", [
         validators.DataRequired(message=("Username required")),
-        validators.Length(min=5, max=80, message=("Enter your correct username"))
+        validators.Length(min=5, max=80, message=("Enter your username"))
     ])
     password = PasswordField("Password", [
         validators.DataRequired(message=("Password required")),
-        validators.Length(min=5, max=80, message=("Enter your correct password"))
+        validators.Length(min=5, max=80, message=("Enter your password"))
     ])
 
     class Meta:
