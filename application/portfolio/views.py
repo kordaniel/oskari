@@ -10,6 +10,7 @@ def portfolios_index():
     return render_template("portfolios/list.html", portfolios = Portfolio.query.all())
 
 @app.route("/portfolios/new")
+@login_required
 def portfolios_form():
     return render_template("portfolios/new.html", form = CreatePortfolioForm())
 
