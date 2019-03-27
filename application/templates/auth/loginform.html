@@ -4,17 +4,32 @@
 <h3>Login to Oskari</h3>
 {{ error }}
   <form method="POST" action="{{ url_for('auth_login') }}">
+    {{ form.csrf_token }}
     <table>
       <tr>
         <td>{{ form.username.label }}</td>
         <td>{{ form.username }}</td>
+        <td>
+          <ul>
+            {% for error in form.username.errors %}
+            <li>{{ error }}</li>
+            {% endfor %}
+          </ul>
+        </td>
       </tr>
       <tr>
         <td>{{ form.password.label }}</td>
         <td>{{ form.password }}</td>
+        <td>
+          <ul>
+            {% for error in form.password.errors %}
+            <li>{{ error }}</li>
+            {% endfor %}
+          </ul>
+        </td>
       </tr>
       <tr>
-        <td colspan="2"><input type="submit" value="Login"/></td>
+        <td colspan="3"><input type="submit" value="Login"/></td>
       </tr>
     </table>
   </form>
