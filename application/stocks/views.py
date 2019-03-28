@@ -44,7 +44,7 @@ def stocks_update(stock_id):
     s = Stock.query.get(stock_id)
     form = StockForm(request.form)
 
-    if not form.validate():
+    if form.ticker.data != s.ticker and not form.validate() or not form.name.validate(form):
         return render_template("stocks/stock.html", s = s, form = form)
     
     form.populate_obj(s)

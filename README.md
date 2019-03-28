@@ -1,6 +1,13 @@
 ### Heroku-url:
 [Oskari herokussa](https://oskari.herokuapp.com/)
 
+## Osan 3 etapit
+### Testitunnukset
+Sovelluksessa on rekisteröitymislomake, jonka avulla kuka tahansa voi luoda toimivat tunnukset. Olen myös luonut valmiiksi pari käyttäjää joilla on tunnus/salasana: testi/testaaja ja esimerkin mukaiset hello/world, jos haluatte käyttää niitä. Tällä hetkellä sovelluksessa on vain normaaleja käyttäjiä, ei ylläpitäjiä.
+
+### CRUD-toiminnallisuus
+Stock-taululla on täysi CRUD toteutettuna, osakkeita voi lisätä, niiden tietoja voi tarkastella sekä muutella kuten myös listata koko taulun sisällön sekä poistaa rivejä. Tietokantaa muuttavat operaatiot vaativat sisäänkirjautumisen.
+
 # Oskari
 
 Oskari on sovellus, joka pitää kirjaa rekisteröityneiden käyttäjien tekemistä osakekaupoista. Käyttäjä voi luoda itselleen salkkuja minne he voivat kirjata tekemiään kauppoja (ostoja sekä myyntejä). Ensin kirjataan osto, jonka jälkeen voidaan kirjata myynti. Jotta sovellus/tietokanta ei paisuisi liian monimutkaiseksi, niin kaupat käsitellään aina kokonaisina eli käyttäjä ei voi myydä osaa osakkeista, vaan tapahtumat käsitellään aina kauppatapahtumana, eli osto- ja myyntimäärät ovat aina yhtä suuria (osakkeitten lkm). Käyttäjälle tai salkulle lasketaan erilaisia yhteenvetoja.
