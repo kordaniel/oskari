@@ -32,9 +32,11 @@ def stocks_form():
 @app.route("/stocks/<stock_id>", methods=["GET"])
 def stocks_view(stock_id):
     s = Stock.query.get(stock_id)
-    form = StockForm(obj=s)
 
-    return render_template("stocks/stock.html", s = s, form = form)
+    if request.method == "GET" and s is not None:
+        return render_template("/stocks/stock.html", s = s, form = StockForm(obj = s))
+    
+    return redirect(url_for("stocks_index"))
 
 @app.route("/stocks/update/<stock_id>", methods=["POST"])
 @login_required
@@ -47,4 +49,15 @@ def stocks_update(stock_id):
     
     form.populate_obj(s)
     db.session().commit()
+    return redirect(url_for("stocks_index"))
+
+@app.route("/stocks/<stock_id>", methods=["DELETE"])
+@login_required
+def stocks_delete(stock_id):
+    s = Stock.query.get(stock_id)
+    
+    if s is not None:
+        db.session().delete(s)
+        db.session().commit()
+
     return redirect(url_for("stocks_index"))

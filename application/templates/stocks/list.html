@@ -5,15 +5,31 @@
   <table>
     <tr>
       <th>Ticker</th>
-      <th>Full name</th>
+      <th colspan="2">Full name</th>
     </tr>
     {% for stock in stocks %}
-    <tr>
+    <tr id="{{ stock.id }}">
       <td>{{ stock.ticker }}</td>
       <td>
         <a href="{{ url_for('stocks_view', stock_id=stock.id) }}">{{ stock.name }}</a>
       </td>
+      {% if current_user.is_authenticated %}
+      <td>
+        <button onclick="sendDeleteRequest('{{ url_for('stocks_view', stock_id=stock.id) }}')">Delete</button>
+      </td>
+      {% endif %}
     </tr>
     {% endfor %}
   </table>
+
+  <script>
+    function sendDeleteRequest(deleteUrl) {
+      const xhttp = new XMLHttpRequest()
+      xhttp.onload = function() {
+        window.location.href = xhttp.responseURL
+      }
+      xhttp.open("DELETE", deleteUrl, true)
+      xhttp.send();
+    }
+  </script>
 {% endblock %}
