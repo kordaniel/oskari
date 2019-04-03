@@ -1,13 +1,9 @@
 from application import db
+from application.models import Base
 
-class User(db.Model):
+class User(Base):
     __tablename__ = "account"
-
-    id = db.Column(db.Integer, primary_key=True)
-    date_created = db.Column(db.DateTime, default=db.func.current_timestamp())
-    date_modified = db.Column(db.DateTime, default=db.func.current_timestamp(),
-    onupdate=db.func.current_timestamp())
-
+    
     name = db.Column(db.String(144), nullable=False)
     role = db.Column(db.String(8), default="user", nullable=False) #admin/user
     username = db.Column(db.String(80), unique=True, nullable=False)
