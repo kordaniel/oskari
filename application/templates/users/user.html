@@ -1,0 +1,16 @@
+{% extends "layout.html" %}
+
+  {% block body %}
+  <h3>{{ user.name }}</h3>
+  
+  <h4>Portfolios</h4>
+
+  <ul>
+    {% for portfolio in user.portfolios %}
+      <li><a href="{{ url_for('portfolios_view', portfolio_id=portfolio.id) }}">{{ portfolio.name }}</a></li>
+    {% else %}
+      <li>No portfolios</li>
+    {% endfor %}
+  </ul>
+  
+  {% endblock %}

@@ -4,13 +4,15 @@
 <h3>Users Portfolios</h3>
   <table>
     <tr>
-      <th>User ID</th>
+      <th>Owner</th>
       <th>Portfolio name</th>
     </tr>
     {% for portfolio in portfolios %}
     <tr>
-      <td>{{ portfolio.account_id }}</td>
-      <td>{{ portfolio.name }}</td>
+      <td>{{ portfolio.account_name() }}</td>
+      <td>
+        <a href="{{ url_for('portfolios_view', portfolio_id=portfolio.id) }}">{{ portfolio.name }}</a>
+      </td>
     </tr>
     {% endfor %}
   </table>

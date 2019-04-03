@@ -7,7 +7,14 @@ from application.portfolio.forms import CreatePortfolioForm
 
 @app.route("/portfolios", methods=["GET"])
 def portfolios_index():
-    return render_template("portfolios/list.html", portfolios = Portfolio.query.all())
+    return render_template("portfolios/list.html", portfolios = Portfolio.query.order_by(Portfolio.name).all())
+
+@app.route("/portfolios/<portfolio_id>", methods=["GET"])
+def portfolios_view(portfolio_id):
+    p = Portfolio.query.get(portfolio_id)
+    if p is None:
+        return redirect(url_for("portfolios_index"))
+    return render_template("portfolios/portfolio.html", portfolio = p)
 
 @app.route("/portfolios/new")
 @login_required

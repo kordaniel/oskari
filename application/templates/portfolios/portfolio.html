@@ -1,0 +1,76 @@
+{% extends "layout.html" %}
+
+  {% block body %}
+    <h2>{{ portfolio.name }}</h2>
+    <p>Portfolio owner: {{ portfolio.account_name() }}</p>
+    <a href="{{ url_for('user_view', user_id=portfolio.account_id) }}">Back to profile</a>
+    <h4>Open positions</h4>
+    <table border="1">
+      <form>
+        <tr>
+          <td><input type="text" size="4" name="ticker" placeholder="TICKER" /></td>
+          <td><input type="text" size="10" name="name" placeholder="Enter name" /></td>
+          <td><input type="number" name="amount" min="0" placeholder="0" /></td>
+          <td colspan="2"><input type="date" name="date" placeholder="dd.mm.yyyy" /></td>
+          <td colspan="2"><select name="buyOrSell">
+            <option value="buy" selected>Buy</option>
+            <option value="sell">Sell</option>
+          </select></td>
+          <td><input type="text" name="price" placeholder="Enter price" /></td>
+          <td><input type="submit" value="Save" /></td>
+        </tr>
+      </form>
+      <tr>
+        <th>Ticker</th>
+        <th>Name</th>
+        <th>Amount</th>
+        <th>Buy date</th>
+        <th>Price bought</th>
+        <th>Sell date</th>
+        <th>Price sold</th>
+        <th>Current price</th>
+        <th>Return</th>
+      </tr>
+      {% for trade in portfolio.trades %}
+      <tr>
+        <td>{{ trade.stocks[0].ticker }}</td>
+        <td>{{ trade.stocks[0].name }}</td>
+        <td>{{ trade.amount }}</td>
+        <td>{{ trade.date_created }}</td>
+        <td>{{ trade.buyprice }}</td>
+        <td>{{ trade.date_modified }}</td>
+        <td>{{ trade.sellprice }}</td>
+        <td>NOT IMPLEMENTED</td>
+        <td>NOT IMPLEMENTED</td>
+      </tr>
+      {% endfor %}
+    </table>
+
+    <h4>Closed positions</h4>
+    <table border="1">
+      <tr>
+        <th>Ticker</th>
+        <th>Name</th>
+        <th>Amount</th>
+        <th>Buy date</th>
+        <th>Price bought</th>
+        <th>Sell date</th>
+        <th>Price sold</th>
+        <th>Current price</th>
+        <th>Return</th>
+      </tr>
+      {% for trade in portfolio.trades %}
+      <tr>
+        <td>{{ trade.stocks[0].ticker }}</td>
+        <td>{{ trade.stocks[0].name }}</td>
+        <td>{{ trade.amount }}</td>
+        <td>{{ trade.date_created }}</td>
+        <td>{{ trade.buyprice }}</td>
+        <td>{{ trade.date_modified }}</td>
+        <td>{{ trade.sellprice }}</td>
+        <td>NOT IMPLEMENTED</td>
+        <td>NOT IMPLEMENTED</td>
+      </tr>
+      {% endfor %}
+    </table>
+  {% endblock %}

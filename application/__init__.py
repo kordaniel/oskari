@@ -20,11 +20,16 @@ from application import views
 from application.auth import models
 from application.auth import views
 
+from application.users import views
+
 from application.stocks import models
 from application.stocks import views
 
 from application.portfolio import models
 from application.portfolio import views
+
+from application.trade import models
+#from application.trade import views
 
 # authentication
 from application.auth.models import User
