@@ -7,6 +7,9 @@ class CreatePortfolioForm(FlaskForm):
         validators.DataRequired(message=("Proper name required")),
         validators.Length(min=5, max=144)
     ])
+
+    class Meta:
+        csrf = False
     # actually, there can be multiple portfolios with the same name
     # leaving this here for now, if I decide to use it later!
     #def validate_name(self, name):

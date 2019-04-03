@@ -16,4 +16,4 @@ class StockForm(FlaskForm):
             raise validators.ValidationError("Ticker already in database")
     
     class Meta:
-        csrd = False
+        csrf = False

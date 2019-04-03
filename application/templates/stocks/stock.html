@@ -5,7 +5,6 @@
     <p>Ticker: {{ s.ticker }}</p>
     <p><strong>Update</strong> '{{ s.name }}' entry values to:</p>
     <form method="POST" action="{{ url_for('stocks_update', stock_id=s.id) }}">
-        {{ form.csrf_token }}
         <table>
             <tr>
                 <td>{{ form.ticker.label }}</td>

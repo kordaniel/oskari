@@ -13,7 +13,7 @@ class LoginForm(FlaskForm):
     ])
 
     class Meta:
-        csrd = False
+        csrf = False
 
 class NewUserForm(FlaskForm):
     name = StringField("Full name", [
@@ -48,4 +48,4 @@ class NewUserForm(FlaskForm):
             raise validators.ValidationError("Email already in use, please use a different email address")
     
     class Meta:
-        csrd = False
+        csrf = False
