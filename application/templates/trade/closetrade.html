@@ -1,0 +1,44 @@
+{% extends "layout.html" %}
+
+{% block body %}
+  <h3>Close trade</h3>
+  <form method="POST" action="{{ url_for('trade_close', trade_id=trade.id) }}">
+    <table>
+      <tr><td>Trade ID:</td><td>{{ trade.id }}</td></tr>
+      <tr><td>Company name:</td><td>{{ trade.stocks[0].name }}</td></tr>
+      <tr><td>Stock amount:</td><td>{{ trade.amount}} kpl</td></tr>
+      <tr><td>Affecting portfolio with ID:</td><td>{{ portfolio_id }}</td></tr>
+      <tr><td>Price bought:</td><td>{{ trade.buyprice }}</td></tr>
+    </table>
+    <br>
+    <table>
+      <tr>
+        <td>{{ form.selldate.label }}</td>
+        <td>{{ form.selldate }}</td>
+        <td>
+          <ul>
+            {% for error in form.selldate.errors %}
+            <li>{{ error }}</li>
+            {% endfor %}
+          </ul>
+        </td>
+      </tr>
+      <tr>
+        <td>{{ form.sellprice.label }}</td>
+        <td>{{ form.sellprice }}</td>
+        <td>
+          <ul>
+            {% for error in form.sellprice.errors %}
+            <li>{{ error }}</li>
+            {% endfor %}
+          </ul>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="2">
+          <input type="submit" value="Save data"/>
+        </td>
+      </tr>
+    </table>
+  </form>
+{% endblock %}

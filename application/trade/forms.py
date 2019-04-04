@@ -1,7 +1,9 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, IntegerField, SelectField, DecimalField, validators
+from wtforms import StringField, IntegerField, SelectField, DecimalField, HiddenField, validators
 from wtforms.fields.html5 import DateField
 from flask_wtf.html5 import NumberInput
+
+from application.stocks.models import Stock
 
 class TradeForm(FlaskForm):
     ticker = StringField("Ticker", [
@@ -20,6 +22,17 @@ class TradeForm(FlaskForm):
     price = DecimalField("Price", [
             validators.NumberRange(min=0)],
             render_kw={"placeholder": "1.234"})
+
+    class Meta:
+        csrf = False
+
+class CloseTradeForm(FlaskForm):
+    sellprice = DecimalField("Sell Price", [
+        validators.NumberRange(min=0)],
+        render_kw={"placeholder": "1.234"})
+    selldate = DateField("DateTime")
+    
+    portfolio_id = HiddenField("Portfolio")
 
     class Meta:
         csrf = False

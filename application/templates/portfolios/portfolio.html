@@ -8,9 +8,6 @@
         <li><a href="{{ url_for('user_view', user_id=portfolio.account_id) }}">Back to profile</a></li>
       </ul>
     </div>
-    
-    
-    
     <!-- malli
     <table border="1">
         <form>
@@ -34,54 +31,55 @@
       
       <table border="1">
         {% if current_user.is_authenticated %}
-        <tr>
           <form method="POST" action="{{ url_for('trade_create', portfolio_id=portfolio.id) }}">
-            <td>{{ form.ticker }}</td>
-            <td>{{ form.name }}</td>
-            <td>{{ form.amount }}</td>
-            <td>{{ form.date }}</td>
-            <td>{{ form.price }}</td>
-            <td colspan="2"><input type="submit" value="Add position" /></td>
+            <tr>    
+              <td>{{ form.ticker }}</td>
+              <td>{{ form.name }}</td>
+              <td>{{ form.amount }}</td>
+              <td>{{ form.date }}</td>
+              <td>{{ form.price }}</td>
+              <td colspan="2"><input type="submit" value="Add position" /></td>
+            </tr>
           </form>
-        </tr>
-        <tr>
-          <td>
-            <ul>
-              {% for error in form.ticker.errors %}
-                <li>{{ error }}</li>
-              {% endfor %}
-            </ul>
-          </td>
-          <td>
-            <ul>
-              {% for error in form.name.errors %}
-                <li>{{ error }}</li>
-              {% endfor %}
-            </ul>
-          </td>
-          <td>
-            <ul>
-              {% for error in form.amount.errors %}
-                <li>{{ error }}</li>
-              {% endfor %}
-            </ul>
-          </td>
-          <td>
-            <ul>
-              {% for error in form.date.errors %}
-                <li>{{ error }}</li>
-              {% endfor %}
-            </ul>
-          </td>
-          <td>
-            <ul>
-              {% for error in form.price.errors %}
-                <li>{{ error }}</li>
-              {% endfor %}
-            </ul>
-          </td>
-        </tr>
+          <tr>
+            <td>
+              <ul>
+                {% for error in form.ticker.errors %}
+                  <li>{{ error }}</li>
+                {% endfor %}
+              </ul>
+            </td>
+            <td>
+              <ul>
+                {% for error in form.name.errors %}
+                  <li>{{ error }}</li>
+                {% endfor %}
+              </ul>
+            </td>
+            <td>
+              <ul>
+                {% for error in form.amount.errors %}
+                  <li>{{ error }}</li>
+                {% endfor %}
+              </ul>
+            </td>
+            <td>
+              <ul>
+                {% for error in form.date.errors %}
+                  <li>{{ error }}</li>
+                {% endfor %}
+              </ul>
+            </td>
+            <td>
+              <ul>
+                {% for error in form.price.errors %}
+                  <li>{{ error }}</li>
+                {% endfor %}
+              </ul>
+            </td>
+          </tr>
         {% endif %}
+
         <tr>
           <th>Ticker</th>
           <th>Name</th>
@@ -89,21 +87,35 @@
           <th>Buy date</th>
           <th>Price bought</th>
           <th>Current price</th>
-          <th>Return</th>
+          <th>Return (if sold now)</th>
         </tr>
-        {% for trade in portfolio.trades %}
+        {% for trade in portfolio.open_trades() %}
         <tr>
-          <td>{{ trade.stocks[0].ticker }}</td>
-          <td>{{ trade.stocks[0].name }}</td>
+          <td>{{ trade.ticker }}</td>
+          <td>{{ trade.name }}</td>
           <td>{{ trade.amount }}</td>
-          <td>{{ trade.date_created }}</td>
+          <td>{{ trade.buydate }}</td>
           <td>{{ trade.buyprice }}</td>
           <td>NOT IMPLEMENTED</td>
           <td>NOT IMPLEMENTED</td>
+          {% if current_user.is_authenticated %}
+          <td>
+            <form action="{{ url_for('trade_finish') }}" method="GET">
+              <input type="hidden" id="portfolio_id" name="portfolio_id" value="{{ portfolio.id }}">
+              <input type="hidden" id="trade_id" name="trade_id" value="{{ trade.id }}">
+              <input type="submit" value="Close position">
+            </form>
+          </td>
+          {% endif %}
+        </tr>
+        {% else %}
+        <tr>
+          <td colspan="7">No open positions</td>
         </tr>
         {% endfor %}
       </table>
   </div>
+
   <div>
     <h4>Closed positions</h4>
     <table border="1">
@@ -118,17 +130,21 @@
         <th>Current price</th>
         <th>Return</th>
       </tr>
-      {% for trade in portfolio.trades %}
+      {% for trade in portfolio.closed_trades() %}
       <tr>
-        <td>{{ trade.stocks[0].ticker }}</td>
-        <td>{{ trade.stocks[0].name }}</td>
+        <td>{{ trade.ticker }}</td>
+        <td>{{ trade.name }}</td>
         <td>{{ trade.amount }}</td>
-        <td>{{ trade.date_created }}</td>
+        <td>{{ trade.buydate }}</td>
         <td>{{ trade.buyprice }}</td>
-        <td>{{ trade.date_modified }}</td>
+        <td>{{ trade.selldate }}</td>
         <td>{{ trade.sellprice }}</td>
         <td>NOT IMPLEMENTED</td>
-        <td>NOT IMPLEMENTED</td>
+        <td>{{ trade.total_return }}</td>
+      </tr>
+      {% else %}
+      <tr>
+        <td colspan="9">No closed trades</td>
       </tr>
       {% endfor %}
     </table>
