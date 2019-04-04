@@ -4,7 +4,9 @@
 ## Osan 4 etapit
 Sovelluksessa on monimutkaisempi tietokantakysely joka kohdistuu tauluihin Trade, Tradestock ja Stock. Nämä on määritelty portfolio:n modeliin
 
-Sovelluksessa on kyllä reilusti bugeja vielä, mutta kaikkia ominaisuuksia voi käyttää. Esimerkiksi Kauppa kirjatessa kenttä nimi on turha, sitä ei käytetä mihinkään. Myös Stockit on ensin lisättävä käsin eri sivulta, ennen kuin niitä voidaan käyttää kaupoissa. Vaikka kauppojen yhteydessä kysytään päivämääriä, niitä ei vielä tallenneta kantaan. Tod.näk monta muutakin, aika vain loppui pahasti kesken tällä viikolla.
+Sovelluksessa on kyllä reilusti bugeja vielä, mutta kaikkia ominaisuuksia voi käyttää. Esimerkiksi Kauppa kirjatessa kenttä nimi on turha, sitä ei käytetä mihinkään. Myös Stockit on ensin lisättävä käsin eri sivulta, ennen kuin niitä voidaan käyttää kaupoissa. Vaikka kauppojen yhteydessä kysytään päivämääriä, niitä ei vielä tallenneta kantaan. Tod.näk monta muutakin, aika vain loppui pahasti kesken tällä viikolla. 
+
+Myös Safari-selainta käytettäessä näyttäisi olevan ongelmia päivämäärän syöttämisen kanssa. "Suosittelen chromen tai ffoxin käyttöä..."
 
 ## Osan 3 etapit
 ### Testitunnukset
