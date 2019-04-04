@@ -29,7 +29,7 @@ from application.portfolio import models
 from application.portfolio import views
 
 from application.trade import models
-#from application.trade import views
+from application.trade import views
 
 # authentication
 from application.auth.models import User

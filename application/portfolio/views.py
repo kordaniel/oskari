@@ -4,6 +4,7 @@ from flask_login import login_required, current_user
 from application import app, db
 from application.portfolio.models import Portfolio
 from application.portfolio.forms import CreatePortfolioForm
+from application.trade.forms import TradeForm
 
 @app.route("/portfolios", methods=["GET"])
 def portfolios_index():
@@ -12,9 +13,11 @@ def portfolios_index():
 @app.route("/portfolios/<portfolio_id>", methods=["GET"])
 def portfolios_view(portfolio_id):
     p = Portfolio.query.get(portfolio_id)
+
     if p is None:
         return redirect(url_for("portfolios_index"))
-    return render_template("portfolios/portfolio.html", portfolio = p)
+
+    return render_template("portfolios/portfolio.html", portfolio = p, form = TradeForm())
 
 @app.route("/portfolios/new")
 @login_required
