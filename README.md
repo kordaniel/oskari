@@ -1,6 +1,11 @@
 ### Heroku-url:
 [Oskari herokussa](https://oskari.herokuapp.com/)
 
+## Osan 4 etapit
+Sovelluksessa on monimutkaisempi tietokantakysely joka kohdistuu tauluihin Trade, Tradestock ja Stock. Nämä on määritelty portfolio:n modeliin
+
+Sovelluksessa on kyllä reilusti bugeja vielä, mutta kaikkia ominaisuuksia voi käyttää. Esimerkiksi Kauppa kirjatessa kenttä nimi on turha, sitä ei käytetä mihinkään. Myös Stockit on ensin lisättävä käsin eri sivulta, ennen kuin niitä voidaan käyttää kaupoissa. Vaikka kauppojen yhteydessä kysytään päivämääriä, niitä ei vielä tallenneta kantaan. Tod.näk monta muutakin, aika vain loppui pahasti kesken tällä viikolla.
+
 ## Osan 3 etapit
 ### Testitunnukset
 Sovelluksessa on rekisteröitymislomake, jonka avulla kuka tahansa voi luoda toimivat tunnukset. Olen myös luonut valmiiksi pari käyttäjää joilla on tunnus/salasana: testi/testaaja ja esimerkin mukaiset hello/world, jos haluatte käyttää niitä. Tällä hetkellä sovelluksessa on vain normaaleja käyttäjiä, ei ylläpitäjiä.
