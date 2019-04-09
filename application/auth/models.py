@@ -3,7 +3,7 @@ from application.models import Base
 
 class User(Base):
     __tablename__ = "account"
-    
+
     name = db.Column(db.String(144), nullable=False)
     role = db.Column(db.String(8), default="user", nullable=False) #admin/user
     username = db.Column(db.String(80), unique=True, nullable=False)
@@ -30,3 +30,7 @@ class User(Base):
 
     def is_authenticated(self):
         return True
+    
+    #CHANGE TO FETCH ROLES FROM DV!
+    def roles(self):
+        return ["ADMIN"]

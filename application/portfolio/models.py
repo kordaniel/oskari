@@ -22,7 +22,6 @@ class Portfolio(Base):
         return res[0]
     
     def open_trades(self):
-        print("MOORAOMWRORM")
         stmt = text("SELECT Stock.ticker, Stock.name, Trade.id,"
                     " Trade.date_created AS buydate,  Trade.amount, Trade.buyprice"
                     " FROM Trade, Tradestock, Stock"
@@ -44,9 +43,6 @@ class Portfolio(Base):
         return response
 
     def closed_trades(self):
-        #stmt = text("SELECT * FROM trade"
-        #            " WHERE portfolio_id = :portfolio_id"
-        #            " AND sellprice IS NOT null").params(portfolio_id=self.id)
         stmt = text("SELECT Stock.ticker, Stock.name, Trade.date_created AS buydate, Trade.date_modified AS selldate, Trade.amount,"
                     " Trade.buyprice, Trade.sellprice"
                     " FROM Trade, Tradestock, Stock"

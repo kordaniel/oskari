@@ -29,10 +29,10 @@
     <div>
       <h4>Open positions</h4>
       
-      <table border="1">
+      <table class="table table-sm table-hover table-bordered table-striped">
         {% if current_user.is_authenticated %}
           <form method="POST" action="{{ url_for('trade_create', portfolio_id=portfolio.id) }}">
-            <tr>    
+            <tr class="table-info">
               <td>{{ form.ticker }}</td>
               <td>{{ form.name }}</td>
               <td>{{ form.amount }}</td>
@@ -80,15 +80,16 @@
           </tr>
         {% endif %}
 
-        <tr>
+        <tr class="thead-dark">
           <th>Ticker</th>
-          <th>Name</th>
-          <th>Amount</th>
+          <th">Name</th>
+          <th">Amount</th>
           <th>Buy date</th>
           <th>Price bought</th>
           <th>Current price</th>
           <th>Return (if sold now)</th>
         </tr>
+        
         {% for trade in portfolio.open_trades() %}
         <tr>
           <td>{{ trade.ticker }}</td>
@@ -118,8 +119,8 @@
 
   <div>
     <h4>Closed positions</h4>
-    <table border="1">
-      <tr>
+    <table class="table table-sm table-hover table-bordered table-striped">
+      <tr class="thead-dark">
         <th>Ticker</th>
         <th>Name</th>
         <th>Amount</th>

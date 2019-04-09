@@ -13,12 +13,12 @@ class TradeForm(FlaskForm):
     name = StringField("Name", [
             validators.DataRequired(),
             validators.Length(min=3, max=144)],
-            render_kw={"size": "10", "placeholder": "Enter name"})
+            render_kw={"size": "12", "placeholder": "Enter name"})
     amount = IntegerField("Amount", [
             validators.NumberRange(min=1)],
             widget=NumberInput(),
-            render_kw={"size": "4", "placeholder": "0"})
-    date = DateField("DateTime")
+            render_kw={"placeholder": "0"})
+    date = DateField("DateTime", render_kw={"size": "2"})
     price = DecimalField("Price", [
             validators.NumberRange(min=0)],
             render_kw={"placeholder": "1.234"})
@@ -31,7 +31,7 @@ class CloseTradeForm(FlaskForm):
         validators.NumberRange(min=0)],
         render_kw={"placeholder": "1.234"})
     selldate = DateField("DateTime")
-    
+
     portfolio_id = HiddenField("Portfolio")
 
     class Meta:
