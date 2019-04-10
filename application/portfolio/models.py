@@ -43,14 +43,16 @@ class Portfolio(Base):
         return response
 
     def closed_trades(self):
-        stmt = text("SELECT Stock.ticker, Stock.name, Trade.date_created AS buydate, Trade.date_modified AS selldate, Trade.amount,"
-                    " Trade.buyprice, Trade.sellprice"
+        stmt = text("SELECT Stock.ticker, Stock.name,"
+                    " Trade.date_created AS buydate, Trade.date_modified AS selldate, Trade.amount,"
+                    " Trade.buyprice, Trade.sellprice,"
+                    " ROUND((Trade.sellprice - Trade.buyprice) * Trade.amount, :decimals) AS total_return"
                     " FROM Trade, Tradestock, Stock"
                     " WHERE Trade.portfolio_id = :portfolio_id"
                     " AND Trade.sellprice IS NOT null"
                     " AND Trade.id = Tradestock.trade_id"
                     " AND Tradestock.stock_id = Stock.id"
-                    ).params(portfolio_id=self.id)
+                    ).params(portfolio_id=self.id, decimals=2)
         res = db.engine.execute(stmt)
 
         response = []
@@ -60,7 +62,7 @@ class Portfolio(Base):
         for rowproxy in res:
             for column, value in rowproxy.items():
                 row_data = {**row_data, **{column: value}}
-            row_data["total_return"] = (row_data["sellprice"] - row_data["buyprice"]) * row_data["amount"]
+            #row_data["total_return"] = (row_data["sellprice"] - row_data["buyprice"]) * row_data["amount"]
             response.append(row_data)
 
         return response
