@@ -46,19 +46,18 @@ class Portfolio(Base):
         stmt = text("SELECT Stock.ticker, Stock.name,"
                     " Trade.date_created AS buydate, Trade.date_modified AS selldate, Trade.amount,"
                     " Trade.buyprice, Trade.sellprice,"
-                    " ROUND((Trade.sellprice - Trade.buyprice) * Trade.amount, :decimals) AS total_return"
+                    " ROUND(((Trade.sellprice - Trade.buyprice) * Trade.amount), :decimals) AS total_return"
                     " FROM Trade, Tradestock, Stock"
                     " WHERE Trade.portfolio_id = :portfolio_id"
                     " AND Trade.sellprice IS NOT null"
                     " AND Trade.id = Tradestock.trade_id"
                     " AND Tradestock.stock_id = Stock.id"
-                    ).params(portfolio_id=self.id, decimals=2)
+                    ).params(portfolio_id=self.id, decimals="2")
         res = db.engine.execute(stmt)
 
         response = []
         row_data = {}
 
-        #CHANGE TOTAL RETURN CALCULATION TO BE DONE IN DB!?
         for rowproxy in res:
             for column, value in rowproxy.items():
                 row_data = {**row_data, **{column: value}}
