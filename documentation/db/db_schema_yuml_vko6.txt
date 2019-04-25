@@ -1,0 +1,14 @@
+[User|(pk) id:Integer; date_created:Datetime; date_modified:Datetime;  username:String; password: String; name:String; email:String],
+[Role|(pk) id:Integer; date_created:Datetime; date_modified:Datetime; name:String; superuser:Boolean],
+[Userrole|(fk) user_id:User;(fk) role_id:Role],
+[Portfolio|(pk) id:Integer; date_created:Datetime; date_modified:Datetime; account_id: User; name:String],
+[Trade|(pk) id:Integer; (fk) portfolio_id: Portfolio; date_created:Datetime; date_modified:Datetime; amount:Integer; buyprice:Integer; sellprice:Integer],
+[Stock|(pk) id:Integer; date_created:Datetime; date_modified:Datetime; ticker:String; name:String],
+[TradeStock|(fk) trade_id:Trade;(fk) stock_id:Stock],
+
+[User]1-*[Userrole],
+[Userrole]*-1[Role],
+[User]1-*[Portfolio],
+[Portfolio]1-*[Trade],
+[Trade]1-*[TradeStock],
+[TradeStock]*-1[Stock]

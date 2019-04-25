@@ -1,16 +1,15 @@
 ### Heroku-url:
 [Oskari herokussa](https://oskari.herokuapp.com/)
 
+## Testitunnukset
+Sovellus luo automaattisesti administrator/topsekret tunnukset taulujen luonnin yhteydessä. Tämän jälkeen sovellukseen voi rekisteröityä normaalisti sivujen kautta. Olen myös luonut valmiiksi tunnuksen hello/world.
+
 ## Osan 4 etapit
 Sovelluksessa on monimutkaisempi tietokantakysely joka kohdistuu tauluihin Trade, Tradestock ja Stock. Nämä on määritelty portfolio:n modeliin
 
-Sovelluksessa on kyllä reilusti bugeja vielä, mutta kaikkia ominaisuuksia voi käyttää. Esimerkiksi Kauppa kirjatessa kenttä nimi on turha, sitä ei käytetä mihinkään. Myös Stockit on ensin lisättävä käsin eri sivulta, ennen kuin niitä voidaan käyttää kaupoissa. Vaikka kauppojen yhteydessä kysytään päivämääriä, niitä ei vielä tallenneta kantaan. Tod.näk monta muutakin, aika vain loppui pahasti kesken tällä viikolla. 
+Sovelluksessa on kyllä reilusti bugeja vielä, mutta kaikkia ominaisuuksia voi käyttää. Esimerkiksi Kauppa kirjatessa kenttä nimi on turha, sitä ei käytetä mihinkään. Myös Stockit on ensin lisättävä käsin eri sivulta, ennen kuin niitä voidaan käyttää kaupoissa. Vaikka kauppojen yhteydessä kysytään päivämääriä, niitä ei vielä tallenneta kantaan. Tod.näk monta muutakin, aika vain loppui pahasti kesken tällä viikolla.
 
 Myös Safari-selainta käytettäessä näyttäisi olevan ongelmia päivämäärän syöttämisen kanssa. "Suosittelen chromen tai ffoxin käyttöä..."
-
-## Osan 3 etapit
-### Testitunnukset
-Sovelluksessa on rekisteröitymislomake, jonka avulla kuka tahansa voi luoda toimivat tunnukset. Olen myös luonut valmiiksi pari käyttäjää joilla on tunnus/salasana: testi/testaaja ja esimerkin mukaiset hello/world, jos haluatte käyttää niitä. Tällä hetkellä sovelluksessa on vain normaaleja käyttäjiä, ei ylläpitäjiä.
 
 ### CRUD-toiminnallisuus
 Stock-taululla on täysi CRUD toteutettuna, osakkeita voi lisätä, niiden tietoja voi tarkastella sekä muutella kuten myös listata koko taulun sisällön sekä poistaa rivejä. Tietokantaa muuttavat operaatiot vaativat sisäänkirjautumisen.
@@ -26,6 +25,9 @@ CRUD-tauluja ovat siis User, Portfolio sekä Trade, Nämä myös aina liittyvät
 Stock-taulussa on kaikkien tunnettujen yritysten tiedot, nimi sekä kaupankäyntitunnus. Nämä ovat erillisessä taulussa, jotta niitä olisi helppo päivittää tarvittaessa, esim nimi muuttuu tai mahdollisesti lisätä lisää attribuutteja. Jokaiseen kauppaan(Trade) kuuluu aina yksi Stock, mutta Stock voi tietysti kuulua äärettömän moneen Trade:iin. En ole varma kuuluisiko tässä välissä olla (aito) liitostaulu, kyllä kai?
 
 ### Tietokantakaavio
+[25.4.2019 Päivitetty kuva](https://github.com/kordaniel/oskari/tree/master/documentation/db/db_schema_vko6.jpg
+[25.4.2019 yuml.me formatoitu dokumentti](https://github.com/kordaniel/oskari/tree/master/documentation/db/db_schema_yuml.txt)
+Alkuperäiset:
 [kuva](https://github.com/kordaniel/oskari/tree/master/documentation/db/db_schema.jpg)  
 [yuml.me formatoitu dokumentti](https://github.com/kordaniel/oskari/tree/master/documentation/db/db_schema_yuml.txt)
 
