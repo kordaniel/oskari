@@ -13,7 +13,7 @@ Lokaalisti ajettuna sovellus luo automaattisesti tarvitsemansa data.db sqlite3 t
 Sovelluksen mukana tulee tiedosto Procfile, jossa on määritelty herokun tarvitsemat komennot sovelluksen ajamiseen. Heroku lataa kaikki moduulit automaattisesti ja tarjoaa tarvittavan PostgreSQL-tietokannan.  
 
 Asennus herokuun menee ihan normaalisti, ilman sen suurempia konfiguraatioita, komennot oskari-hakemistossa:  
-heroku create <valitsemasi-nimi>
-git remote add heroku <https://git.heroku.com/...>, missä ... on herokun palauttama osoite.
-tarvittaessa git add . sekä git commit -m "lähetys herokuun"
-git push heroku master
+heroku create <valitsemasi-nimi>  
+git remote add heroku <https://git.heroku.com/...>, missä ... on herokun palauttama osoite.  
+tarvittaessa git add . sekä git commit -m "lähetys herokuun"  
+git push heroku master  
