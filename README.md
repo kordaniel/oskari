@@ -24,8 +24,10 @@ CRUD-tauluja ovat siis User, Portfolio sekä Trade, Nämä myös aina liittyvät
 
 Stock-taulussa on kaikkien tunnettujen yritysten tiedot, nimi sekä kaupankäyntitunnus. Nämä ovat erillisessä taulussa, jotta niitä olisi helppo päivittää tarvittaessa, esim nimi muuttuu tai mahdollisesti lisätä lisää attribuutteja. Jokaiseen kauppaan(Trade) kuuluu aina yksi Stock, mutta Stock voi tietysti kuulua äärettömän moneen Trade:iin. En ole varma kuuluisiko tässä välissä olla (aito) liitostaulu, kyllä kai?
 
+### Asennusohje
+[Asennusohje](https://github.com/kordaniel/oskari/tree/master/documentation/user_guide.md)
 ### Tietokantakaavio
-[25.4.2019 Päivitetty kuva](https://github.com/kordaniel/oskari/tree/master/documentation/db/db_schema_vko6.jpg
+[25.4.2019 Päivitetty kuva](https://github.com/kordaniel/oskari/tree/master/documentation/db/db_schema_vko6.jpg)
 [25.4.2019 yuml.me formatoitu dokumentti](https://github.com/kordaniel/oskari/tree/master/documentation/db/db_schema_yuml.txt)
 Alkuperäiset:
 [kuva](https://github.com/kordaniel/oskari/tree/master/documentation/db/db_schema.jpg)  
@@ -48,12 +50,12 @@ Alkuperäiset:
   * Sähköposti
 
 * Käyttäjät voivat
-  * Luoda/poistaa salkkuja
+  * Luoda/poistaa salkkuja - salkkuja ei voi poistaa vielä
   * Lisätä osakkeita järjestelmään (jos jää aikaa, niin tämä voidaan korvata sopivalla API:lla)
-  * Hallita omia tietoja
+  * Hallita omia tietoja - ei vielä toteutettu
 
 * Ylläpitäjät voivat
-  * Hallita käyttäjiä (muokata sekä poistaa)
+  * Hallita käyttäjiä (muokata sekä poistaa) - tällä hetkellä vain asettaa/poistaa ylläpitäjän rooli käyttäjille
   * Poistaa osakkeita järjestelmästä
 
 ### Salkku
@@ -63,7 +65,7 @@ Alkuperäiset:
 * Käyttäjä voi kirjata ostoja
 * Käyttäjä voi nähdä mitä osakkeita hän omistaa kyseisenä hetkenä sekä näiden osakkeiden määrän ja ostotapahtuman tiedot salkuittain.
   * Per kauppa
-  * Yhteenveto (osakelajeittain)
+  * Yhteenveto (osakelajeittain) - ei toteutettu, eikä toteuteta tämän kurssin aikana
   * Kauppa ei ole valmis, eli salkussa on tiettyä osaketta kun Trade:n attribuutti sellprice on null/negatiivinen
 * Käyttäjä voi myydä (osan) osakkeistaan
 * Kauppa on "valmis", kun osake on myyty, silloin lasketaan tuotto (myynti- ja ostohinnan erotus)
