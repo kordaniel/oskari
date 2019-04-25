@@ -1,4 +1,4 @@
-from application import db
+from application import db, app
 from application.models import Base
 
 from sqlalchemy.sql import text
@@ -54,9 +54,10 @@ class Portfolio(Base):
                     " AND Tradestock.stock_id = Stock.id"
                     ).params(portfolio_id=self.id)
         
-        from application import os
-        if not os.environ.get("HEROKU"):
-            #using sqlite
+        
+        if app.config["SQLALCHEMY_DATABASE_URI"].startswith("sqlite"):
+            # using sqlite, need to use differnet query
+            # this is probably an dumb way to do this, but...
             stmt = text("SELECT Stock.ticker, Stock.name,"
                         " Trade.date_created AS buydate, Trade.date_modified AS selldate, Trade.amount,"
                         " Trade.buyprice, Trade.sellprice,"
@@ -76,7 +77,6 @@ class Portfolio(Base):
         for rowproxy in res:
             for column, value in rowproxy.items():
                 row_data = {**row_data, **{column: value}}
-            #row_data["total_return"] = (row_data["sellprice"] - row_data["buyprice"]) * row_data["amount"]
             response.append(row_data)
 
         return response

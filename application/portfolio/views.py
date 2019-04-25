@@ -15,12 +15,12 @@ def portfolios_index():
 def portfolios_view(portfolio_id):
     p = Portfolio.query.get(portfolio_id)
 
+    if p is None:
+        return redirect(url_for("portfolios_index"))
+    
     if p.account_id != current_user.id:
         return login_manager.unauthorized()
     
-    if p is None:
-        return redirect(url_for("portfolios_index"))
-
     return render_template("portfolios/portfolio.html", portfolio = p, form = TradeForm())
 
 @app.route("/portfolios/new")

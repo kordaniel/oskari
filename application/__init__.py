@@ -12,6 +12,8 @@ else:
     app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///data.db"
     app.config["SQLALCHEMY_ECHO"] = True
 
+app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
+
 db = SQLAlchemy(app)
 
 # login functionality
@@ -42,7 +44,7 @@ def login_required(role="ANY"):
             if role != "ANY":
                 unauthorized = True
 
-                for user_role in current_user.roles():
+                for user_role in current_user.get_roles():
                     if user_role == role:
                         unauthorized = False
                         break
@@ -57,11 +59,6 @@ def login_required(role="ANY"):
 # app logic
 from application import views
 
-from application.auth import models
-from application.auth import views
-
-from application.users import views
-
 from application.stocks import models
 from application.stocks import views
 
@@ -71,8 +68,28 @@ from application.portfolio import views
 from application.trade import models
 from application.trade import views
 
-# login functionality, part 2
-from application.auth.models import User
+from application.auth import models
+from application.auth import views
+
+from application.users import views
+
+# listeners to add default values into tables after creation
+from sqlalchemy import event
+from application.auth.models import Role, User
+
+@event.listens_for(Role.__table__, 'after_create')
+def insert_initial_roles(*args, **kwargs):
+    db.session.add(Role("ADMIN", True))
+    db.session.add(Role("USER", False))
+    db.session.commit()
+
+@event.listens_for(User.__table__, 'after_create')
+def insert_initial_superuser(*args, **kwargs):
+    super_user = User("Admin Superuser", "administrator",
+        "topsekret", "admin@oskariadmin.com")
+
+    db.session.add(super_user)
+    db.session.commit()
 
 @login_manager.user_loader
 def load_user(user_id):
@@ -81,5 +98,13 @@ def load_user(user_id):
 # create database tables if necessary
 try:
     db.create_all()
+    # username is unique in User model.. would like to do this in
+    # the listener or in a new listener, but can't get it to work..?
+    su_user = User.query.filter_by(username="administrator").first()
+    su_user.set_default_role()
+    su_role = Role.query.filter_by(superuser=True).first()
+    if su_role.name not in su_user.get_roles():
+        su_user.roles.append(su_role)
+        db.session.commit()
 except:
     pass
