@@ -23,20 +23,22 @@ def user_view(user_id):
     
     return render_template("users/user.html", user = user)
 
-@app.route("/users/<user_id>", methods = ["POST"])
+@app.route("/users/superuser/<user_id>", methods = ["POST"])
 @login_required(role="ADMIN")
 def user_switch_superuser_status(user_id):
     if user_id.isdigit():
         user = User.query.get(user_id)
         su_role = Role.query.filter_by(superuser=True).first()
 
-        if user.is_superuser():
+        if not user.is_superuser():
+            user.roles.append(su_role)
+        elif user.get_id() != 1:
             user.roles.remove(su_role)
         else:
-            user.roles.append(su_role)
+            pass
         db.session.commit()
     
-    return render_template("/users/all_users.html", users = User.query.all())
+    return redirect(url_for("users_index"))
 
 #@app.route("/user/<user_id>", methods = ["DELETE"])
 #@login_required(role="ADMIN")
