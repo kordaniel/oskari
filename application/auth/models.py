@@ -48,6 +48,11 @@ class User(Base):
     def is_authenticated(self):
         return True
     
+    # NOT TESTED YET!!!
+    def is_superuser(self):
+        su_role = Role.query.filter_by(superuser=True).first()
+        return su_role.name in self.get_roles()
+    
     def set_default_role(self):
         user_role = Role.get_default_role()
         

@@ -5,11 +5,10 @@ from application import app, db, login_manager, login_required
 from application.auth.models import User
 
 
-@app.route("/user", methods=["GET"])
+@app.route("/users", methods=["GET"])
 @login_required(role="ADMIN")
 def users_index():
-    return "avautui"
-    #return render_template("/users/all_users.html", users = User.query.all())
+    return render_template("/users/all_users.html", users = User.query.all())
 
 @app.route("/user/<user_id>", methods = ["GET"])
 @login_required()

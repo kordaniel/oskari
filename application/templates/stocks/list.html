@@ -13,7 +13,7 @@
       <td>
         <a href="{{ url_for('stocks_view', stock_id=stock.id) }}">{{ stock.name }}</a>
       </td>
-      {% if current_user.is_authenticated %}
+      {% if current_user.is_authenticated and current_user.is_superuser() is sameas true %}
       <td>
         <button onclick="sendDeleteRequest('{{ url_for('stocks_view', stock_id=stock.id) }}')">Delete</button>
       </td>

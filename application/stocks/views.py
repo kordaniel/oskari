@@ -1,7 +1,7 @@
 from flask import redirect, render_template, request, url_for
-from flask_login import login_required
+from flask_login import current_user
 
-from application import app, db
+from application import app, db, login_required
 from application.stocks.models import Stock
 from application.stocks.forms import StockForm
 
@@ -10,7 +10,7 @@ def stocks_index():
     return render_template("stocks/list.html", stocks = Stock.query.all())
 
 @app.route("/stocks", methods=["POST"])
-@login_required
+@login_required()
 def stocks_create():
     this_form = StockForm(request.form)
 
@@ -25,7 +25,7 @@ def stocks_create():
     return redirect(url_for("stocks_index"))
 
 @app.route("/stocks/new")
-@login_required
+@login_required()
 def stocks_form():
     return render_template("stocks/new.html", form = StockForm())
 
@@ -39,7 +39,7 @@ def stocks_view(stock_id):
     return redirect(url_for("stocks_index"))
 
 @app.route("/stocks/update/<stock_id>", methods=["POST"])
-@login_required
+@login_required()
 def stocks_update(stock_id):
     s = Stock.query.get(stock_id)
     form = StockForm(request.form)
@@ -52,7 +52,7 @@ def stocks_update(stock_id):
     return redirect(url_for("stocks_index"))
 
 @app.route("/stocks/<stock_id>", methods=["DELETE"])
-@login_required
+@login_required(role="ADMIN")
 def stocks_delete(stock_id):
     s = Stock.query.get(stock_id)
     
