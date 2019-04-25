@@ -1,7 +1,7 @@
 from flask import redirect, render_template, request, url_for
 from flask_login import current_user
 
-from application import app, db, login_manager, login_required
+from application import app, db, login_manager, login_required, current_user
 from application.portfolio.models import Portfolio
 from application.portfolio.forms import CreatePortfolioForm
 from application.trade.forms import TradeForm
@@ -18,10 +18,10 @@ def portfolios_view(portfolio_id):
     if p is None:
         return redirect(url_for("portfolios_index"))
     
-    if p.account_id != current_user.id:
-        return login_manager.unauthorized()
-    
-    return render_template("portfolios/portfolio.html", portfolio = p, form = TradeForm())
+    if p.account_id == current_user.id or (current_user.is_authenticated and current_user.is_superuser()):
+        return render_template("portfolios/portfolio.html", portfolio = p, form = TradeForm())
+
+    return login_manager.unauthorized()
 
 @app.route("/portfolios/new")
 @login_required()

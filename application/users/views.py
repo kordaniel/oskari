@@ -40,8 +40,15 @@ def user_switch_superuser_status(user_id):
     
     return redirect(url_for("users_index"))
 
-#@app.route("/user/<user_id>", methods = ["DELETE"])
-#@login_required(role="ADMIN")
-#def delete_user(user_id):
-#    if not user_id.isdigit():
-#        return render_template("users/all_users.html", users = User.query.all())
+@app.route("/users/<user_id>", methods = ["DELETE"])
+@login_required(role="ADMIN")
+def delete_user(user_id):
+    if user_id.isdigit():
+        user = User.query.get(user_id)
+
+        if user is not None:
+            db.session.delete(user)
+            db.session.commit()
+    
+    return redirect(url_for("users_index"))
+    

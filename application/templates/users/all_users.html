@@ -7,7 +7,13 @@
       <th>Name</th>
       <th>Username</th>
       <th>E-mail</th>
-      <th colspan="2">Superuser</th>
+      {% if current_user.is_authenticated and current_user.is_superuser() %}
+        <th colspan="2">Superuser</th>
+        <th>Delete user</th>
+      {% else %}
+        <th>Superuser</th>
+      {% endif %}
+      
     </tr>
     {% for user in users %}
       <tr>
@@ -15,15 +21,28 @@
         <td>{{ user.username }}</td>
         <td>{{ user.email }}</td>
         <td>{{ user.is_superuser() }}</td>
-        {% if user.get_id() != 1 %}
+        {% if user.get_id() != 1 and current_user.is_authenticated and current_user.is_superuser() %}
         <td>
           <form method="POST" action="{{ url_for('user_switch_superuser_status', user_id=user.get_id()) }}">
             <input type="submit" value="Enable/disable superuser role" />
           </form>
+        </td>
+        <td>
+          <button onclick="sendDeleteRequest('{{ url_for('delete_user', user_id=user.id) }}')">Delete</button>
         </td>
         {% endif %}
       </tr>
     {% endfor %}
   </table>
   
+  <script>
+    function sendDeleteRequest(deleteUrl) {
+      const xhttp = new XMLHttpRequest()
+      xhttp.onload = function() {
+        window.location.href = xhttp.responseURL
+      }
+      xhttp.open("DELETE", deleteUrl, true)
+      xhttp.send();
+    }
+  </script>
   {% endblock %}
