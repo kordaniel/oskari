@@ -25,13 +25,13 @@ CRUD-tauluja ovat siis User, Portfolio sekä Trade, Nämä myös aina liittyvät
 Stock-taulussa on kaikkien tunnettujen yritysten tiedot, nimi sekä kaupankäyntitunnus. Nämä ovat erillisessä taulussa, jotta niitä olisi helppo päivittää tarvittaessa, esim nimi muuttuu tai mahdollisesti lisätä lisää attribuutteja. Jokaiseen kauppaan(Trade) kuuluu aina yksi Stock, mutta Stock voi tietysti kuulua äärettömän moneen Trade:iin. En ole varma kuuluisiko tässä välissä olla (aito) liitostaulu, kyllä kai?
 
 ### Asennusohje
-[Asennusohje](https://github.com/kordaniel/oskari/tree/master/documentation/user_guide.md)
+[Asennusohje](https://github.com/kordaniel/oskari/tree/master/documentation/user_guide.md)  
 ### Tietokantakaavio
-[25.4.2019 Päivitetty kuva](https://github.com/kordaniel/oskari/tree/master/documentation/db/db_schema_vko6.jpg)
-[25.4.2019 yuml.me formatoitu dokumentti](https://github.com/kordaniel/oskari/tree/master/documentation/db/db_schema_yuml.txt)
-Alkuperäiset:
+[25.4.2019 Päivitetty kuva](https://github.com/kordaniel/oskari/tree/master/documentation/db/db_schema_vko6.jpg)  
+[25.4.2019 yuml.me formatoitu dokumentti](https://github.com/kordaniel/oskari/tree/master/documentation/db/db_schema_yuml.txt)  
+Alkuperäiset:  
 [kuva](https://github.com/kordaniel/oskari/tree/master/documentation/db/db_schema.jpg)  
-[yuml.me formatoitu dokumentti](https://github.com/kordaniel/oskari/tree/master/documentation/db/db_schema_yuml.txt)
+[yuml.me formatoitu dokumentti](https://github.com/kordaniel/oskari/tree/master/documentation/db/db_schema_yuml.txt)  
 
 ### Käyttäjätarinoita
 [Kaikki käyttäjät](https://github.com/kordaniel/oskari/tree/master/documentation/user_stories.md)
