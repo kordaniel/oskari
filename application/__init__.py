@@ -107,10 +107,9 @@ def load_user(user_id):
 # create database tables if necessary
 try:
     db.create_all()
-    # username is unique in User model.. would like to do this in
-    # the listener or in a new listener, but can't get it to work..?
+    # Set roles for default user with id = 1,
+    # including ADMIN-role.
     su_user = User.query.get(1)
-    #filter_by(username="administrator").first()
     su_user.set_default_role()
     su_role = Role.query.filter_by(superuser=True).first()
     if su_role.name not in su_user.get_roles():
