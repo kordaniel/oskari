@@ -85,9 +85,18 @@ def insert_initial_roles(*args, **kwargs):
 
 @event.listens_for(User.__table__, 'after_create')
 def insert_initial_superuser(*args, **kwargs):
-    super_user = User("Admin Superuser", "administrator",
-        "topsekret", "admin@oskariadmin.com")
-
+    if os.environ.get("HEROKU"):
+        super_user = User(
+            os.environ.get("SU_NAME"),
+            os.environ.get("SU_USERNAME"),
+            os.environ.get("SU_PASSWD"),
+            os.environ.get("SU_EMAIL"))
+    else:
+        super_user = User(
+            "Development Superuser",
+            "administrator",
+            "topsekret",
+            "admin@oskariadmin.com")
     db.session.add(super_user)
     db.session.commit()
 
@@ -100,7 +109,8 @@ try:
     db.create_all()
     # username is unique in User model.. would like to do this in
     # the listener or in a new listener, but can't get it to work..?
-    su_user = User.query.filter_by(username="administrator").first()
+    su_user = User.query.get(1)
+    #filter_by(username="administrator").first()
     su_user.set_default_role()
     su_role = Role.query.filter_by(superuser=True).first()
     if su_role.name not in su_user.get_roles():
