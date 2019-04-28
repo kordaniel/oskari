@@ -4,7 +4,10 @@ from flask_login import current_user
 from application import app, db, login_manager, login_required, current_user
 from application.portfolio.models import Portfolio
 from application.portfolio.forms import CreatePortfolioForm
-from application.trade.forms import TradeForm
+from application.trade.forms import StockListForm, TradeForm
+
+#temp
+from application.stocks.models import Stock
 
 @app.route("/portfolios", methods=["GET"])
 def portfolios_index():
@@ -19,7 +22,8 @@ def portfolios_view(portfolio_id):
         return redirect(url_for("portfolios_index"))
     
     if p.account_id == current_user.id or (current_user.is_authenticated and current_user.is_superuser()):
-        return render_template("portfolios/portfolio.html", portfolio = p, form = TradeForm())
+        return render_template("portfolios/portfolio.html",
+            portfolio = p, form = TradeForm(), stocksform = StockListForm())
 
     return login_manager.unauthorized()
 

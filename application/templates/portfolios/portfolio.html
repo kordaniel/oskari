@@ -2,6 +2,12 @@
 
   {% block body %}
     <div>
+      <form method="POST">
+        {{ stocksform.stocks }}
+        <input type="submit" value="Select">
+      </form>
+    </div>
+    <div>
       <h2>{{ portfolio.name }}</h2>
       <ul>
         <li>Portfolio owner: {{ portfolio.account_name() }}</li>

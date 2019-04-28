@@ -5,6 +5,17 @@ from flask_wtf.html5 import NumberInput
 
 from application.stocks.models import Stock
 
+class StockListForm(FlaskForm):
+    stocks = SelectField("Stocks", [
+            validators.DataRequired()])
+
+    def __init__(self, *args, **kwargs):
+        super(StockListForm, self).__init__(*args, **kwargs)
+        self.stocks.choices = Stock.find_all_stocks()
+    
+    class Meta:
+        csrd = False
+
 class TradeForm(FlaskForm):
     ticker = StringField("Ticker", [
             validators.DataRequired(),

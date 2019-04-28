@@ -81,10 +81,10 @@ class Portfolio(Base):
 
         return response
 
-    @staticmethod
-    def find_all_portfolios():
-        stmt = text("SELECT account.name, portfolio.name from account"
-                    " LEFT JOIN portfolio ON account.id = portfolio.account_id")
-        res = db.engine.execute(stmt)
-        for row in res:
-            print(row)
+#    @staticmethod
+#    def find_all_portfolios():
+#        stmt = text("SELECT account.name, portfolio.name from account"
+#                    " LEFT JOIN portfolio ON account.id = portfolio.account_id")
+#        res = db.engine.execute(stmt)
+#        for row in res:
+#            print(row)
