@@ -11,20 +11,14 @@ class StockListForm(FlaskForm):
 
     def __init__(self, *args, **kwargs):
         super(StockListForm, self).__init__(*args, **kwargs)
-        self.stocks.choices = Stock.find_all_stocks()
+        self.stocks.choices = Stock.find_all_stocks_alphabetically()
     
     class Meta:
         csrd = False
 
 class TradeForm(FlaskForm):
-    ticker = StringField("Ticker", [
-            validators.DataRequired(),
-            validators.Length(min=1, max=16)],
-            render_kw={"size": "4", "placeholder": "TICKER"})
-    name = StringField("Name", [
-            validators.DataRequired(),
-            validators.Length(min=3, max=144)],
-            render_kw={"size": "12", "placeholder": "Enter name"})
+    stocks = SelectField("Select stock", [
+            validators.DataRequired()])
     amount = IntegerField("Amount", [
             validators.NumberRange(min=1)],
             widget=NumberInput(),
@@ -34,6 +28,10 @@ class TradeForm(FlaskForm):
             validators.NumberRange(min=0)],
             render_kw={"placeholder": "1.234"})
 
+    def __init__(self, *args, **kwargs):
+        super(TradeForm, self).__init__(*args, **kwargs)
+        self.stocks.choices = Stock.find_all_stocks_alphabetically()
+    
     class Meta:
         csrf = False
 

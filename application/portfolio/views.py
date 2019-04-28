@@ -6,9 +6,6 @@ from application.portfolio.models import Portfolio
 from application.portfolio.forms import CreatePortfolioForm
 from application.trade.forms import StockListForm, TradeForm
 
-#temp
-from application.stocks.models import Stock
-
 @app.route("/portfolios", methods=["GET"])
 def portfolios_index():
     return render_template("portfolios/list.html", portfolios = Portfolio.query.order_by(Portfolio.name).all())
@@ -23,7 +20,7 @@ def portfolios_view(portfolio_id):
     
     if p.account_id == current_user.id or (current_user.is_authenticated and current_user.is_superuser()):
         return render_template("portfolios/portfolio.html",
-            portfolio = p, form = TradeForm(), stocksform = StockListForm())
+            portfolio = p, form = TradeForm())
 
     return login_manager.unauthorized()
 

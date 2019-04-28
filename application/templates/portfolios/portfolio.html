@@ -2,66 +2,35 @@
 
   {% block body %}
     <div>
-      <form method="POST">
-        {{ stocksform.stocks }}
-        <input type="submit" value="Select">
-      </form>
-    </div>
-    <div>
-      <h2>{{ portfolio.name }}</h2>
+      <h2>Portfolio: {{ portfolio.name }}</h2>
       <ul>
         <li>Portfolio owner: {{ portfolio.account_name() }}</li>
         <li><a href="{{ url_for('user_view', user_id=portfolio.account_id) }}">Back to profile</a></li>
       </ul>
     </div>
-    <!-- malli
-    <table border="1">
-        <form>
-          <tr><th>MALLI</th></tr>
-            <tr>
-              <td><input type="text" size="4" name="ticker" placeholder="TICKER" /></td>
-              <td><input type="text" size="10" name="name" placeholder="Enter name" /></td>
-              <td><input type="number" name="amount" min="0" placeholder="0" /></td>
-              <td colspan="2"><input type="date" name="date" placeholder="dd.mm.yyyy" /></td>
-              <td colspan="2"><select name="buyOrSell">
-                <option value="buy" selected>Buy</option>
-                <option value="sell">Sell</option>
-              </select></td>
-              <td><input type="text" name="price" placeholder="Enter price" /></td>
-              <td><input type="submit" value="Save" /></td>
-            </tr>
-          </form>
-    </table> -->
+
+    {% if current_user.is_authenticated %}
     <div>
-      <h4>Open positions</h4>
-      
-      <table class="table table-sm table-hover table-bordered table-striped">
-        {% if current_user.is_authenticated %}
-          <form method="POST" action="{{ url_for('trade_create', portfolio_id=portfolio.id) }}">
-            <tr class="table-info">
-              <td>{{ form.ticker }}</td>
-              <td>{{ form.name }}</td>
-              <td>{{ form.amount }}</td>
-              <td>{{ form.date }}</td>
-              <td>{{ form.price }}</td>
-              <td colspan="2"><input type="submit" value="Add position" /></td>
-            </tr>
-          </form>
+      <h3>Open new position</h3>
+      <p>Select desired stock from the dropdown menu. If your desired stock isn't listed, you must go to <a class="link" href="{{ url_for('stocks_form') }}">Add a stock</a> and add it before opening your trade.
+      </p>
+
+      <form method="POST" action="{{ url_for('trade_create', portfolio_id=portfolio.id) }}">
+        <table>
           <tr>
+            <td>{{ form.stocks.label }}</td>
+            <td>{{ form.stocks }}</td>
             <td>
               <ul>
-                {% for error in form.ticker.errors %}
+                {% for error in form.stocks.errors %}
                   <li>{{ error }}</li>
                 {% endfor %}
               </ul>
             </td>
-            <td>
-              <ul>
-                {% for error in form.name.errors %}
-                  <li>{{ error }}</li>
-                {% endfor %}
-              </ul>
-            </td>
+          </tr>
+          <tr>
+            <td>{{ form.amount.label }}</td>
+            <td>{{ form.amount }}</td>
             <td>
               <ul>
                 {% for error in form.amount.errors %}
@@ -69,6 +38,10 @@
                 {% endfor %}
               </ul>
             </td>
+          </tr>
+          <tr>
+            <td>{{ form.date.label }}</td>
+            <td>{{ form.date }}</td>
             <td>
               <ul>
                 {% for error in form.date.errors %}
@@ -76,6 +49,10 @@
                 {% endfor %}
               </ul>
             </td>
+          </tr>
+          <tr>
+            <td>{{ form.price.label }}</td>
+            <td>{{ form.price }}</td>
             <td>
               <ul>
                 {% for error in form.price.errors %}
@@ -84,12 +61,25 @@
               </ul>
             </td>
           </tr>
-        {% endif %}
+          <tr>
+            <td colspan="3">
+              <input type="submit" value="Open new position" />
+            </td>
+          </tr>
+        </table>
+      </form>
+    </div>
+    {% endif %}
 
+    <p></p>
+    
+    <div>
+      <h4>Open positions</h4>
+      <table class="table table-sm table-hover table-bordered table-striped">
         <tr class="thead-dark">
           <th>Ticker</th>
-          <th">Name</th>
-          <th">Amount</th>
+          <th>Name</th>
+          <th>Amount</th>
           <th>Buy date</th>
           <th>Price bought</th>
           <th>Current price</th>
@@ -105,6 +95,7 @@
           <td>{{ trade.buyprice }}</td>
           <td>NOT IMPLEMENTED</td>
           <td>NOT IMPLEMENTED</td>
+          <!--CHECK IF USER IS PORTF.OWNER OR SU-->
           {% if current_user.is_authenticated %}
           <td>
             <form action="{{ url_for('trade_finish') }}" method="GET">
@@ -132,10 +123,10 @@
         <th>Amount</th>
         <th>Buy date</th>
         <th>Price bought</th>
-        <th>Sell date</th>
         <th>Price sold</th>
+        <th>Sell date</th>
         <th>Current price</th>
-        <th>Return</th>
+        <th>Total return</th>
       </tr>
       {% for trade in portfolio.closed_trades() %}
       <tr>
@@ -144,8 +135,8 @@
         <td>{{ trade.amount }}</td>
         <td>{{ trade.buydate }}</td>
         <td>{{ trade.buyprice }}</td>
-        <td>{{ trade.selldate }}</td>
         <td>{{ trade.sellprice }}</td>
+        <td>{{ trade.selldate }}</td>
         <td>NOT IMPLEMENTED</td>
         <td>{{ trade.total_return }}</td>
       </tr>

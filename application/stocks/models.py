@@ -12,7 +12,7 @@ class Stock(Base):
         self.name = name
     
     @staticmethod
-    def find_all_stocks():
+    def find_all_stocks_alphabetically():
         stmt = text("SELECT * FROM Stock"
                     " ORDER BY name ASC")
         res = db.engine.execute(stmt)

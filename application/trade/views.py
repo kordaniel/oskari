@@ -15,11 +15,10 @@ def trade_create(portfolio_id):
 
     if not form.validate():
         return render_template("portfolios/portfolio.html", portfolio = portfolio, form = form)
-    
-    stock = Stock.query.filter_by(ticker=form.ticker.data).first()
+
+    stock = Stock.query.filter_by(ticker=form.stocks.data).first()
     
     if stock is None:
-        form.ticker.errors.append("Unknown ticker, if you want to add a new company, first go add it separately")
         return render_template("portfolios/portfolio.html", portfolio = portfolio, form = form)
     
     trade = Trade()
