@@ -25,9 +25,9 @@ Sovellus asennetaan herokuun käyttämällä heroku toolbeltiä, joka on oltava 
 ```
 heroku create <valitsemasi-nimi>  
 heroku config:set SU_NAME="<koko nimi>"  
-heroku config:set SU_USERNAME="ylläpitäjän_tunnus"  
-heroku config:set SU_PASSWD="ylläpitäjän salasana"  
-heroku config:set SU_EMAIL="ylläpitäjän sposti"  
+heroku config:set SU_USERNAME="<ylläpitäjän_tunnus>"  
+heroku config:set SU_PASSWD="<ylläpitäjän salasana>"  
+heroku config:set SU_EMAIL="<ylläpitäjän sposti>"  
 git remote add heroku <https://git.heroku.com/...>, missä ... on herokun palauttama osoite.  
 tarvittaessa git add . sekä git commit -m "lähetys herokuun"  
 git push heroku master  

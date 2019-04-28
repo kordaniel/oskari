@@ -27,8 +27,7 @@ Stock-taulussa on kaikkien tunnettujen yritysten tiedot, nimi sekä kaupankäynt
 ### Asennusohje
 [Asennus- sekä käyttöohje](https://github.com/kordaniel/oskari/tree/master/documentation/user_guide.md)  
 ### Tietokantakaavio
-[25.4.2019 Päivitetty kuva](https://github.com/kordaniel/oskari/tree/master/documentation/db/db_schema_vko6.jpg)  
-[25.4.2019 yuml.me formatoitu dokumentti](https://github.com/kordaniel/oskari/tree/master/documentation/db/db_schema_yuml.txt)  
+[Tietokantakuvaus](https://github.com/kordaniel/oskari/tree/master/documentation/db/db_description.md)  
 Alkuperäiset:  
 [kuva](https://github.com/kordaniel/oskari/tree/master/documentation/db/db_schema.jpg)  
 [yuml.me formatoitu dokumentti](https://github.com/kordaniel/oskari/tree/master/documentation/db/db_schema_yuml.txt)  
