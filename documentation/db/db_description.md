@@ -1,5 +1,5 @@
 # Tietokanta
-![Tietokantakuvaus](https://github.com/kordaniel/oskari/tree/master/documentation/db/db_schema_vko6.jpg)  
+![Tietokantakuvaus](https://raw.githubusercontent.com/kordaniel/oskari/tree/master/documentation/db/db_schema_vko6.jpg)  
 
 ### Create table lauseet
 ```
