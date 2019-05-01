@@ -12,67 +12,75 @@
     {% if current_user.is_authenticated %}
     <div>
       <h3>Open new position</h3>
-      <p>Select desired stock from the dropdown menu. If your desired stock isn't listed, you must go to <a class="link" href="{{ url_for('stocks_form') }}">Add a stock</a> and add it before opening your trade.
-      </p>
+      <p>Select desired stock from the dropdown menu. If your desired stock isn't listed, you must go to <a class="link" href="{{ url_for('stocks_form') }}">Add a stock</a> and add it before opening your trade.</p>
 
       <form method="POST" action="{{ url_for('trade_create', portfolio_id=portfolio.id) }}">
-        <table>
-          <tr>
-            <td>{{ form.stocks.label }}</td>
-            <td>{{ form.stocks }}</td>
-            <td>
+        <div class="form-group">
+          <table>
+            <tr>
+              <td>{{ form.stocks.label }}</td>
+              <td>{{ form.stocks }}</td>
+              <td>
+                <ul>
+                  {% for error in form.stocks.errors %}
+                    <li>{{ error }}</li>
+                  {% endfor %}
+                </ul>
+              </td>
+            </tr>
+            <tr>
+              <td>{{ form.amount.label }}</td>
+              <td>{{ form.amount }}</td>
+              <td>
+                <ul>
+                  {% for error in form.amount.errors %}
+                    <li>{{ error }}</li>
+                  {% endfor %}
+                </ul>
+              </td>
+            </tr>
+            <tr>
+              <td>{{ form.date.label }}</td>
+              <td>{{ form.date }}</td>
+              <td>
+                <ul>
+                  {% for error in form.date.errors %}
+                    <li>{{ error }}</li>
+                  {% endfor %}
+                </ul>
+              </td>
+            </tr>
+            <tr>
+              <td>{{ form.price.label }}</td>
+              <td>{{ form.price }}</td>
+              <td>
+                <ul>
+                  {% for error in form.price.errors %}
+                    <li>{{ error }}</li>
+                  {% endfor %}
+                </ul>
+              </td>
+            </tr>
+            <tr>
+              <td colspan="2">
+                {{ form.submit(class="btn btn-dark") }}
+              </td>
+              <td>
               <ul>
-                {% for error in form.stocks.errors %}
+                {% for error in form.submit.errors %}
                   <li>{{ error }}</li>
                 {% endfor %}
               </ul>
-            </td>
-          </tr>
-          <tr>
-            <td>{{ form.amount.label }}</td>
-            <td>{{ form.amount }}</td>
-            <td>
-              <ul>
-                {% for error in form.amount.errors %}
-                  <li>{{ error }}</li>
-                {% endfor %}
-              </ul>
-            </td>
-          </tr>
-          <tr>
-            <td>{{ form.date.label }}</td>
-            <td>{{ form.date }}</td>
-            <td>
-              <ul>
-                {% for error in form.date.errors %}
-                  <li>{{ error }}</li>
-                {% endfor %}
-              </ul>
-            </td>
-          </tr>
-          <tr>
-            <td>{{ form.price.label }}</td>
-            <td>{{ form.price }}</td>
-            <td>
-              <ul>
-                {% for error in form.price.errors %}
-                  <li>{{ error }}</li>
-                {% endfor %}
-              </ul>
-            </td>
-          </tr>
-          <tr>
-            <td colspan="3">
-              <input type="submit" value="Open new position" />
-            </td>
-          </tr>
-        </table>
+              </td>
+            </tr>
+          </table>
+        </div>
       </form>
     </div>
     {% endif %}
 
     <p></p>
-    
+
     <div>
       <h4>Open positions</h4>
       <table class="table table-sm table-hover table-bordered table-striped">
@@ -101,7 +109,7 @@
             <form action="{{ url_for('trade_finish') }}" method="GET">
               <input type="hidden" id="portfolio_id" name="portfolio_id" value="{{ portfolio.id }}">
               <input type="hidden" id="trade_id" name="trade_id" value="{{ trade.id }}">
-              <input type="submit" value="Close position">
+              <input class="btn btn-dark" type="submit" value="Close position">
             </form>
           </td>
           {% endif %}

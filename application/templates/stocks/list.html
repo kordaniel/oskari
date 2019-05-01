@@ -2,10 +2,14 @@
 
 {% block body %}
   <h3>All stocks</h3>
-  <table>
-    <tr>
+  <table class="table table-sm table-hover table-bordered table-striped">
+    <tr class="thead-dark">
       <th>Ticker</th>
-      <th colspan="2">Full name</th>
+      <th>Full name</th>
+      <th>In number of portfolios</th>
+      {% if current_user.is_authenticated and current_user.is_superuser() is sameas true %}
+      <th>Delete</th>
+      {% endif %}
     </tr>
     {% for stock in stocks %}
     <tr id="{{ stock.id }}">
@@ -13,9 +17,10 @@
       <td>
         <a href="{{ url_for('stocks_view', stock_id=stock.id) }}">{{ stock.name }}</a>
       </td>
+      <td>23(not implemented)</td>
       {% if current_user.is_authenticated and current_user.is_superuser() is sameas true %}
       <td>
-        <button onclick="sendDeleteRequest('{{ url_for('stocks_view', stock_id=stock.id) }}')">Delete</button>
+        <button class="btn btn-dark" onclick="sendDeleteRequest('{{ url_for('stocks_view', stock_id=stock.id) }}')">Delete</button>
       </td>
       {% endif %}
     </tr>

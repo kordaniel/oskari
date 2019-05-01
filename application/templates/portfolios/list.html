@@ -2,14 +2,14 @@
 
 {% block body %}
 <h3>Users Portfolios</h3>
-  <table>
-    <tr>
+  <table class="table table-sm table-hover table-bordered table-striped">
+    <tr class="thead-dark">
       <th>Owner</th>
       <th>Portfolio name</th>
     </tr>
     {% for portfolio in portfolios %}
     <tr>
-      <td>{{ portfolio.account_name() }}</td>
+      <td><a href="{{ url_for('user_view', user_id=portfolio.id) }}">{{ portfolio.account_name() }}</a></td>
       <td>
         <a href="{{ url_for('portfolios_view', portfolio_id=portfolio.id) }}">{{ portfolio.name }}</a>
       </td>

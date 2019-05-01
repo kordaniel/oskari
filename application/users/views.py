@@ -12,8 +12,9 @@ def users_index():
 
 @app.route("/users/<user_id>", methods = ["GET"])
 @login_required()
-def user_view(user_id):    
-    if not user_id.isdigit() or int(user_id) != current_user.id:
+def user_view(user_id):
+    if (not current_user.is_superuser() and
+            (not user_id.isdigit() or int(user_id) != current_user.id)):
         return login_manager.unauthorized()
     
     user = User.query.get(user_id)

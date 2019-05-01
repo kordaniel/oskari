@@ -1,9 +1,9 @@
 from flask import render_template, request, redirect, url_for
 from flask_login import login_user, logout_user
 
-from application import app, db
+from application import app, db, login_required
 from application.auth.models import User, Role
-from application.auth.forms import LoginForm, NewUserForm
+from application.auth.forms import LoginForm, NewUserForm, EditUserForm
 
 @app.route("/auth/login", methods = ["GET", "POST"])
 def auth_login():
@@ -28,8 +28,7 @@ def auth_register():
 
     form = NewUserForm(request.form)
     if not form.validate():
-        print("ei validoitunut")
-        return render_template("/auth/registerform.html", form = form)
+        return render_template("auth/registerform.html", form = form)
 
     user = User(form.name.data, form.username.data, form.password.data, form.email.data)
 
@@ -40,6 +39,25 @@ def auth_register():
 
     login_user(user)
     return redirect(url_for("index"))
+
+@app.route("/auth/edit/<user_id>", methods = ["GET","POST"])
+@login_required()
+def auth_edit_profile(user_id):
+    # CHECK IF CURRENT_USER IS ADMIN OR ID == user_id..
+    
+    if request.method == "GET":
+        user = User.query.get(user_id)
+        form = EditUserForm(obj=User.query.get(user_id))
+        
+        return render_template("auth/edit_profile.html", form = form)
+    
+    # request.method == POST
+    form = EditUserForm(request.form)
+    
+    if not form.id.data.isdigit() or not form.validate():
+        return render_template("auth/edit_profile.html", form = form, user_id = user_id)
+
+    return "edit" + str(user_id)
 
 @app.route("/auth/logout")
 def auth_logout():

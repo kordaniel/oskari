@@ -1,38 +1,43 @@
 {% extends "layout.html" %}
 
 {% block body %}
-    <h2>{{ s.name }}</h2>
-    <p>Ticker: {{ s.ticker }}</p>
-    <p><strong>Update</strong> '{{ s.name }}' entry values to:</p>
-    <form method="POST" action="{{ url_for('stocks_update', stock_id=s.id) }}">
+  <h2>{{ s.name }}</h2>
+  <p>Ticker: {{ s.ticker }}</p>
+  {% if current_user.is_authenticated and current_user.is_superuser() is sameas true %}
+    <div>
+      <p><strong>Update</strong> '{{ s.name }}' entry values to:</p>
+      <form method="POST" action="{{ url_for('stocks_update', stock_id=s.id) }}">
         <table>
-            <tr>
-                <td>{{ form.ticker.label }}</td>
-                <td>{{ form.ticker }}</td>
-                <td>
-                    <ul>
-                        {% for error in form.ticker.errors %}
-                        <li>{{ error }}</li>
-                        {% endfor %}
-                    </ul>
-                </td>
-            </tr>
-            <tr>
-                <td>{{ form.name.label }}</td>
-                <td>{{ form.name }}</td>
-                <td>
-                    <ul>
-                        {% for error in form.name.errors %}
-                        <li>{{ error }}</li>
-                        {% endfor %}
-                    </ul>
-                </td>
-            </tr>
-            <tr>
-                <td colspan="3">
-                    <input type="submit" value="Update Stock data"/>
-                </td>
-            </tr>
+          <tr>
+            <td>{{ form.ticker.label }}</td>
+            <td>{{ form.ticker }}</td>
+            <td>
+              <ul>
+                {% for error in form.ticker.errors %}
+                  <li>{{ error }}</li>
+                {% endfor %}
+              </ul>
+            </td>
+        </tr>
+        <tr>
+          <td>{{ form.name.label }}</td>
+          <td>{{ form.name }}</td>
+          <td>
+            <ul>
+              {% for error in form.name.errors %}
+                <li>{{ error }}</li>
+              {% endfor %}
+            </ul>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="3">
+            <input class="btn btn-dark" type="submit" value="Update Stock data"/>
+          </td>
+        </tr>
         </table>
-    </form>
+      </form>
+    </div>
+  {% endif %}
+  <p><a class="btn btn-dark" href="{{ url_for('stocks_index') }}">Back to stock listing</a></p>
 {% endblock %}

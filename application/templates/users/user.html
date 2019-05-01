@@ -1,22 +1,31 @@
 {% extends "layout.html" %}
 
   {% block body %}
-  <h3>{{ user.name }}</h3>
+  <h3>Account info</h3>
   
-  <h4>User data</h4>
-  <ul>
-    <li>Username: {{ user.username }}</li>
-    <li>Email: {{ user.email }}</li>
-    <li>Is superuser: {{ user.is_superuser() }}</li>
-  </ul>
+  <div>
+    <h5>User data</h5>
+    <ul>
+      <li>Full name: {{ user.name }}</li>
+      <li>Username: {{ user.username }}</li>
+      <li>Email: {{ user.email }}</li>
+      <li>Is superuser: {{ user.is_superuser() }}</li>
+    </ul>
+
+    <p><a class="btn btn-dark" href="{{ url_for('auth_edit_profile', user_id=user.id) }}">Update Profile</a></p>
+    <p><a class="btn btn-dark" href="{{ url_for('auth_edit_profile', user_id=user.id) }}">Change Password</a></p>
+    <p><a class="btn btn-dark" href="{{ url_for('auth_edit_profile', user_id=user.id) }}">Delete Account</a></p>
+  </div>
   
-  <h4>Portfolios</h4>
-  <ul>
-    {% for portfolio in user.portfolios %}
-      <li><a href="{{ url_for('portfolios_view', portfolio_id=portfolio.id) }}">{{ portfolio.name }}</a></li>
-    {% else %}
-      <li>No portfolios</li>
-    {% endfor %}
-  </ul>
-  
+  <div>
+    <h5>My portfolios</h5>
+    <ul>
+      {% for portfolio in user.portfolios %}
+        <li><a href="{{ url_for('portfolios_view', portfolio_id=portfolio.id) }}">{{ portfolio.name }}</a></li>
+      {% else %}
+        <li>No portfolios</li>
+      {% endfor %}
+    </ul>
+  </div>
+
   {% endblock %}

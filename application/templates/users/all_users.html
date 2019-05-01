@@ -2,8 +2,8 @@
   {% block body %}
   <h3>All users</h3>
 
-  <table>
-    <tr>
+  <table class="table table-sm table-hover table-bordered table-striped">
+    <tr class="thead-dark">
       <th>Name</th>
       <th>Username</th>
       <th>E-mail</th>
@@ -24,11 +24,15 @@
         {% if user.get_id() != 1 and current_user.is_authenticated and current_user.is_superuser() %}
         <td>
           <form method="POST" action="{{ url_for('user_switch_superuser_status', user_id=user.get_id()) }}">
-            <input type="submit" value="Enable/disable superuser role" />
+            {% if user.is_superuser() %}
+              <input class="btn btn-dark" type="submit" value="Disable superuser role" />
+            {% else %}
+              <input class="btn btn-dark" type="submit" value="Enable superuser role" />
+            {% endif %}
           </form>
         </td>
         <td>
-          <button onclick="sendDeleteRequest('{{ url_for('delete_user', user_id=user.id) }}')">Delete</button>
+          <button class="btn btn-dark" onclick="sendDeleteRequest('{{ url_for('delete_user', user_id=user.id) }}')">Delete</button>
         </td>
         {% endif %}
       </tr>
