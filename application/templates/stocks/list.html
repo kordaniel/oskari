@@ -20,7 +20,7 @@
       <td>23(not implemented)</td>
       {% if current_user.is_authenticated and current_user.is_superuser() is sameas true %}
       <td>
-        <button class="btn btn-dark" onclick="sendDeleteRequest('{{ url_for('stocks_view', stock_id=stock.id) }}')">Delete</button>
+        <button class="btn btn-danger" onclick="sendDeleteRequest('{{ url_for('stocks_view', stock_id=stock.id) }}')">Delete</button>
       </td>
       {% endif %}
     </tr>
