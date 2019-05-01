@@ -16,7 +16,17 @@ class Stock(Base):
         stmt = text("SELECT COUNT(*) FROM Tradestock"
                     " WHERE stock_id = :stock_id").params(stock_id=self.id)
         res = db.engine.execute(stmt).fetchone()
-        
+
+        return res[0]
+
+    def is_in_number_of_portfolios(self):
+        stmt = text("SELECT COUNT(DISTINCT(portfolio.id)) FROM Portfolio"
+                    " INNER JOIN Trade ON Portfolio.id = Trade.portfolio_id"
+                    " INNER JOIN Tradestock ON Trade.id = Tradestock.trade_id"
+                    " INNER JOIN Stock ON Tradestock.stock_id = Stock.id"
+                    " WHERE stock.id = :stock_id").params(stock_id=self.id)
+        res = db.engine.execute(stmt).fetchone()
+
         return res[0]
 
     @staticmethod

@@ -8,7 +8,7 @@ from application.auth.models import User, Role
 @app.route("/users", methods=["GET"])
 @login_required(role="ADMIN")
 def users_index():
-    return render_template("/users/all_users.html", users = User.query.all())
+    return render_template("/users/all_users.html", users = User.query.order_by(User.name).all())
 
 @app.route("/users/<user_id>", methods = ["GET"])
 @login_required()

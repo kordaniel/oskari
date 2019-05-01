@@ -7,7 +7,7 @@ from application.stocks.forms import StockForm
 
 @app.route("/stocks", methods=["GET"])
 def stocks_index():
-    return render_template("stocks/list.html", stocks = Stock.query.all())
+    return render_template("stocks/list.html", stocks = Stock.query.order_by(Stock.name).all())
 
 @app.route("/stocks", methods=["POST"])
 @login_required()
