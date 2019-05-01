@@ -18,7 +18,8 @@ def portfolios_view(portfolio_id):
     if p is None:
         return redirect(url_for("portfolios_index"))
     
-    if p.account_id == current_user.id or (current_user.is_authenticated and current_user.is_superuser()):
+    if (p.account_id == current_user.id or 
+            (current_user.is_authenticated and current_user.is_superuser())):
         return render_template("portfolios/portfolio.html",
             portfolio = p, form = TradeForm())
 

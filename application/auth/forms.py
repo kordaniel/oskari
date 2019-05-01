@@ -71,17 +71,15 @@ class EditUserForm(FlaskForm):
 
     def validate_username(self, username):
         user = User.query.filter_by(username=username.data).first()
-        print("******"*60)
-        if user is not None:
-            print("user-model id: ", user.get_id())
-        print("ID: ", self.id.data)
-        if user is not None and user.get_id() != int(self.id.data):
-            raise validators.ValidationError("Username taken, please use a different username")
 
-    #def validate_email(self, email):
-    #    user = User.query.filter_by(email=email.data).first()
-    #    if user is not None and user.id != self.id.data:
-    #        raise validators.ValidationError("Email already in use, please use a different email address")
+        if user is not None and user.get_id() != int(self.id.data):
+            raise validators.ValidationError("Username already in use, please use a different username")
+
+    def validate_email(self, email):
+        user = User.query.filter_by(email=email.data).first()
+
+        if user is not None and user.get_id() != int(self.id.data):
+            raise validators.ValidationError("Email already in use, please use a different email address")
     
     class Meta:
         csrf = False

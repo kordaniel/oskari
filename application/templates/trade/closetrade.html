@@ -3,8 +3,9 @@
 {% block body %}
   <h3>Close trade</h3>
   <form method="POST" action="{{ url_for('trade_close', trade_id=trade.id) }}">
+    <input type="hidden" id="portfolio_id" name="portfolio_id" value="{{ form.portfolio_id.data }}">
     <table>
-      <tr><td>Affecting portfolio with ID:</td><td>{{ portfolio_id }}</td></tr>
+      <tr><td>Affecting portfolio with ID:</td><td>{{ form.portfolio_id.data }}</td></tr>
       <tr><td>Trade ID:</td><td>{{ trade.id }}</td></tr>
       <tr><td>Company name:</td><td>{{ trade.stocks[0].name }}</td></tr>
       <tr><td>Stock amount:</td><td>{{ trade.amount}} kpl</td></tr>
@@ -35,9 +36,8 @@
         </td>
       </tr>
       <tr>
-        <td colspan="2">
-          <input type="submit" value="Save data"/>
-        </td>
+        <td><a class="btn btn-secondary" href="{{ url_for('portfolios_view', portfolio_id=form.portfolio_id.data) }}">Cancel</a></td>
+        <td>{{ form.submit(class="btn btn-dark") }}</td>
       </tr>
     </table>
   </form>

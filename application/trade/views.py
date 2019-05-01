@@ -45,7 +45,7 @@ def trade_finish():
     form = CloseTradeForm(portfolio_id = portfolio_id)
     
     return render_template("trade/closetrade.html", 
-            form = form, portfolio_id = portfolio_id, trade = trade)
+            form = form, trade = trade)
 
 @app.route("/trade/close/<trade_id>", methods = ["POST"])
 @login_required
@@ -62,7 +62,4 @@ def trade_close(trade_id):
 
     db.session().commit()
 
-    #print("FASSFAFA ID", form.portfolio_id)
-    #ei toimi hiddenfield
-    #return redirect(url_for("portfolios_view", portfolio_id = 3))
-    return redirect(url_for("portfolios_index"))
+    return redirect(url_for("portfolios_view", portfolio_id = form.portfolio_id.data))

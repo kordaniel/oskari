@@ -53,7 +53,10 @@ class CloseTradeForm(FlaskForm):
         render_kw={"placeholder": "1.234"})
     selldate = DateField("DateTime")
 
-    portfolio_id = HiddenField("Portfolio")
+    portfolio_id = HiddenField("Portfolio ID", [
+        validators.DataRequired(message=("Missing portfolio ID"))
+    ])
+    submit = SubmitField("Close position")
 
     class Meta:
         csrf = False
