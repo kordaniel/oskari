@@ -6,7 +6,7 @@
     <tr class="thead-dark">
       <th>Ticker</th>
       <th>Full name</th>
-      <th>In number of portfolios</th>
+      <th>In number of trades</th>
       {% if current_user.is_authenticated and current_user.is_superuser() is sameas true %}
       <th>Delete</th>
       {% endif %}
@@ -17,7 +17,7 @@
       <td>
         <a href="{{ url_for('stocks_view', stock_id=stock.id) }}">{{ stock.name }}</a>
       </td>
-      <td>23(not implemented)</td>
+      <td>{{ stock.is_in_number_of_trades() }}</td>
       {% if current_user.is_authenticated and current_user.is_superuser() is sameas true %}
       <td>
         <button class="btn btn-danger" onclick="sendDeleteRequest('{{ url_for('stocks_view', stock_id=stock.id) }}')">Delete</button>

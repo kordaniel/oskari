@@ -1,7 +1,7 @@
 from flask import render_template, request, redirect, url_for
-from flask_login import login_user, logout_user
+from flask_login import login_user, logout_user, current_user
 
-from application import app, db, login_required
+from application import app, db, login_required, login_manager
 from application.auth.models import User, Role
 from application.auth.forms import LoginForm, NewUserForm, EditUserForm
 
@@ -43,21 +43,30 @@ def auth_register():
 @app.route("/auth/edit/<user_id>", methods = ["GET","POST"])
 @login_required()
 def auth_edit_profile(user_id):
-    # CHECK IF CURRENT_USER IS ADMIN OR ID == user_id..
+    if not user_id.isdigit():
+        return redirect("index")
+
+    if int(user_id) != current_user.id and not current_user.is_superuser():
+        return login_manager.unauthorized()
     
     if request.method == "GET":
-        user = User.query.get(user_id)
         form = EditUserForm(obj=User.query.get(user_id))
         
         return render_template("auth/edit_profile.html", form = form)
     
-    # request.method == POST
     form = EditUserForm(request.form)
     
     if not form.id.data.isdigit() or not form.validate():
-        return render_template("auth/edit_profile.html", form = form, user_id = user_id)
+        return render_template("auth/edit_profile.html", form = form)
 
-    return "edit" + str(user_id)
+    user = User.query.get(user_id)
+    
+    user.name = form.name.data
+    user.username = form.username.data
+    user.email = form.email.data
+    
+    db.session.commit()
+    return redirect(url_for("user_view", user_id=user_id))
 
 @app.route("/auth/logout")
 def auth_logout():

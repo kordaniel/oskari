@@ -7,8 +7,14 @@ from application.portfolio.forms import CreatePortfolioForm
 from application.trade.forms import StockListForm, TradeForm
 
 @app.route("/portfolios", methods=["GET"])
+@login_required(role="ADMIN")
 def portfolios_index():
     return render_template("portfolios/list.html", portfolios = Portfolio.query.order_by(Portfolio.name).all())
+
+@app.route("/portfolios/current_user")
+@login_required()
+def current_user_portfolios():
+    return render_template("portfolios/user_portfolios.html", portfolios = current_user.portfolios)
 
 @app.route("/portfolios/<portfolio_id>", methods=["GET"])
 @login_required()
