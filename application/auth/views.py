@@ -3,7 +3,7 @@ from flask_login import login_user, logout_user, current_user
 
 from application import app, db, login_required, login_manager
 from application.auth.models import User, Role
-from application.auth.forms import LoginForm, NewUserForm, EditUserForm
+from application.auth.forms import LoginForm, NewUserForm, EditUserForm, EditUserPasswordForm
 
 @app.route("/auth/login", methods = ["GET", "POST"])
 def auth_login():
@@ -56,7 +56,10 @@ def auth_edit_profile(user_id):
     
     form = EditUserForm(request.form)
     
-    if not form.id.data.isdigit() or not form.validate():
+    # here is enough to compare form.id to user_id, since line 4 in
+    # this method checks for credentials
+    if (not form.id.data.isdigit() or 
+            int(form.id.data) != int(user_id) or not form.validate()):
         return render_template("auth/edit_profile.html", form = form)
 
     user = User.query.get(user_id)
@@ -66,9 +69,43 @@ def auth_edit_profile(user_id):
     user.email = form.email.data
     
     db.session.commit()
+
     return redirect(url_for("user_view", user_id=user_id))
 
-@app.route("/auth/logout")
+@app.route("/auth/password/<user_id>", methods = ["GET", "POST"])
+@login_required()
+def auth_change_password(user_id):
+    if not user_id.isdigit():
+        return redirect("index")
+    
+    if int(user_id) != current_user.id and not current_user.is_superuser():
+        return login_manager.unauthorized()
+    
+    if request.method == "GET":
+        form = EditUserPasswordForm()
+        form.id.data = user_id
+        return render_template("auth/edit_password.html", form = form)
+    
+    form = EditUserPasswordForm(request.form)
+
+    if (not form.id.data.isdigit() or 
+            int(form.id.data) != int(user_id) or not form.validate()):
+        return render_template("auth/edit_password.html", form = form)
+    
+    user = User.query.get(user_id)
+    
+    if form.old_password.data != user.password:
+        form.old_password.errors.append("Invalid password")
+        return render_template("auth/edit_password.html", form = form)
+
+    user.password = form.new_password.data
+
+    db.session.commit()
+
+    return render_template("users/user.html", user = user)
+
+@app.route("/auth/logout", methods = ["GET"])
+@login_required()
 def auth_logout():
     logout_user()
     return redirect(url_for("index"))

@@ -84,14 +84,21 @@ class EditUserForm(FlaskForm):
     class Meta:
         csrf = False
 
-class EditUserPassword(FlaskForm):
-    password = PasswordField("Password", [
+class EditUserPasswordForm(FlaskForm):
+    old_password = PasswordField("Old password", [
+        validators.DataRequired(message=("Old password is required")),
+    ])
+    new_password = PasswordField("New password", [
         validators.DataRequired(message=("Password cannot be empty")),
         validators.Length(min=5, max=80, message=("Password must be [5-80] characters long"))
     ])
-    confirm = PasswordField("Confirm Password", [
-        validators.EqualTo("password", message=("Passwords must match"))
+    confirm_password = PasswordField("Confirm Password", [
+        validators.EqualTo("new_password", message=("Passwords must match"))
     ])
+    id = HiddenField("User ID", [
+        validators.DataRequired(message=("ID missing"))
+    ])
+    submit = SubmitField("Update password")
 
     class Meta:
         csrf = False
