@@ -15,7 +15,7 @@
       <div class="collapse navbar-collapse" id="navbarCollapse">
         <ul class="navbar-nav mr-auto">
           <li class="nav-item">
-            <a class="nav-link" href="{{ url_for('stocks_index') }}">List stocks</a>
+            <a class="nav-link" href="{{ url_for('stocks_index', page=1) }}">List stocks</a>
           </li>
           {% if current_user.is_authenticated %}
           <li class="nav-item">

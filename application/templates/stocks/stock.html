@@ -39,5 +39,5 @@
       </form>
     </div>
   {% endif %}
-  <p><a class="btn btn-secondary" href="{{ url_for('stocks_index') }}">Back to stock listing</a></p>
+  <p><a class="btn btn-secondary" href="{{ url_for('stocks_index', page=1) }}">Back to stock listing</a></p>
 {% endblock %}

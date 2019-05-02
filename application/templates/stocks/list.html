@@ -12,7 +12,7 @@
       <th>Delete</th>
       {% endif %}
     </tr>
-    {% for stock in stocks %}
+    {% for stock in stocks.items %}
     <tr id="{{ stock.id }}">
       <td>{{ stock.ticker }}</td>
       <td>
@@ -23,14 +23,15 @@
       {% if current_user.is_authenticated and current_user.is_superuser() is sameas true %}
       <td>
         {% if stock.can_be_deleted() %}
-          <button class="btn btn-danger" onclick="sendDeleteRequest('{{ url_for('stocks_view', stock_id=stock.id) }}')">Delete</button>
+          <button class="btn btn-danger" onclick="sendDeleteRequest('{{ url_for('stocks_delete', stock_id=stock.id) }}')">Delete</button>
         {% endif %}
       </td>
       {% endif %}
     </tr>
     {% endfor %}
   </table>
-
+  {% if stocks.has_prev %}<a href="{{ url_for('stocks_index', page=stocks.prev_num) }}">&lt;&lt; Previous page</a>{% else %}&lt;&lt; Previous page{% endif %} |
+  {% if stocks.has_next %}<a href="{{ url_for('stocks_index', page=stocks.next_num) }}">Next page &gt;&gt;</a>{% else %}Next page &gt;&gt;{% endif %}
   <script>
     function sendDeleteRequest(deleteUrl) {
       const xhttp = new XMLHttpRequest()
