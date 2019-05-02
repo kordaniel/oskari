@@ -10,5 +10,9 @@ class StockForm(FlaskForm):
         validators.DataRequired(message=("Enter company name, 3-144 characters accepted")),
         validators.Length(min=3, max=144)])
     
+    def validate_ticker(self, field):
+        if Stock.query.filter_by(ticker=field.data).first():
+            raise validators.ValidationError("Ticker already in use")
+    
     class Meta:
         csrf = False
