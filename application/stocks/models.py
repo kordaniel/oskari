@@ -12,6 +12,9 @@ class Stock(Base):
         self.ticker = ticker
         self.name = name
     
+    def can_be_deleted(self):
+        return self.is_in_number_of_trades() <= 0
+        
     def is_in_number_of_trades(self):
         stmt = text("SELECT COUNT(*) FROM Tradestock"
                     " WHERE stock_id = :stock_id").params(stock_id=self.id)

@@ -22,7 +22,9 @@
       <td>{{ stock.is_in_number_of_portfolios() }}</td>
       {% if current_user.is_authenticated and current_user.is_superuser() is sameas true %}
       <td>
-        <button class="btn btn-danger" onclick="sendDeleteRequest('{{ url_for('stocks_view', stock_id=stock.id) }}')">Delete</button>
+        {% if stock.can_be_deleted() %}
+          <button class="btn btn-danger" onclick="sendDeleteRequest('{{ url_for('stocks_view', stock_id=stock.id) }}')">Delete</button>
+        {% endif %}
       </td>
       {% endif %}
     </tr>
