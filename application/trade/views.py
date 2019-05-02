@@ -70,10 +70,8 @@ def trade_delete(trade_id):
     trade = Trade.query.get(trade_id)
     portfolio_id = trade.portfolio_id
 
-    if trade is None:
-        return "ei poistettu"
+    if trade is not None:
+        db.session.delete(trade)
+        db.session.commit()
     
-    db.session.delete(trade)
-    db.session.commit()
-
     return redirect(url_for("portfolios_view", portfolio_id=portfolio_id))

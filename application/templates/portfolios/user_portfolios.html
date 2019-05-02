@@ -5,11 +5,15 @@
   <table class="table table-sm table-hover table-bordered table-striped">
     <tr class="thead-dark">
       <th>Portfolio name</th>
+      <th>Delete</th>
     </tr>
     {% for portfolio in portfolios %}
     <tr>
       <td>
         <a href="{{ url_for('portfolios_view', portfolio_id=portfolio.id) }}">{{ portfolio.name }}</a>
+      </td>
+      <td>
+          <button class="btn btn-danger" onclick="sendDeleteRequest('{{ url_for('portfolios_delete', portfolio_id=portfolio.id) }}')">Delete</button>
       </td>
     </tr>
     {% else %}
@@ -18,4 +22,14 @@
     </tr>
     {% endfor %}
   </table>
+  <script>
+    function sendDeleteRequest(deleteUrl) {
+      const xhttp = new XMLHttpRequest()
+      xhttp.onload = function() {
+        window.location.href = xhttp.responseURL
+      }
+      xhttp.open("DELETE", deleteUrl, true)
+      xhttp.send();
+    }
+  </script>
 {% endblock %}

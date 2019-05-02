@@ -5,7 +5,10 @@
 Sovellus luo automaattisesti administrator/topsekret tunnukset taulujen luonnin yhteydessä. Tämän jälkeen sovellukseen voi rekisteröityä normaalisti sivujen kautta. Olen myös luonut valmiiksi tunnuksen hello/world.
 
 ## TODO
-Lisää confirmation-sivu kaikille(?) poisto-operaatioille!
+-Lisää confirmation-sivu kaikille(?) poisto-operaatioille!
+-Trades-view:iin tarvitaan oikeuksien tarkistamista!
+-portfolio.html:ään myös oikeuksien tarkistamista lisättävä!
+-lisättävä notifikaatiot (esim poistojen jälkeen)
 
 ## Osan 4 etapit
 Sovelluksessa on monimutkaisempi tietokantakysely joka kohdistuu tauluihin Trade, Tradestock ja Stock. Nämä on määritelty portfolio:n modeliin

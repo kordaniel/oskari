@@ -7,8 +7,8 @@ trade_stock = db.Table("tradestock",
     
 class Trade(Base):
 
-    portfolio_id = db.Column(db.Integer, db.ForeignKey('portfolio.id'),
-        nullable=False)
+    portfolio_id = db.Column(db.Integer, 
+        db.ForeignKey('portfolio.id', ondelete="CASCADE"), nullable=False)
 
     stocks = db.relationship("Stock", secondary = trade_stock, lazy="subquery",
         backref = db.backref("portfolios", lazy = True))
