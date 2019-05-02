@@ -109,8 +109,9 @@
             <form action="{{ url_for('trade_finish') }}" method="GET">
               <input type="hidden" id="portfolio_id" name="portfolio_id" value="{{ portfolio.id }}">
               <input type="hidden" id="trade_id" name="trade_id" value="{{ trade.id }}">
-              <input class="btn btn-dark" type="submit" value="Close position">
+              <input class="btn btn-dark btn-sm" type="submit" value="Close position">
             </form>
+            <button class="btn btn-danger btn-sm" onclick="sendDeleteRequest('{{ url_for('trade_delete', trade_id=trade.id) }}')">Delete trade</button>
           </td>
           {% endif %}
         </tr>
@@ -147,6 +148,9 @@
         <td>{{ trade.selldate }}</td>
         <td>NOT IMPLEMENTED</td>
         <td>{{ trade.total_return }}</td>
+        {% if current_user.is_authenticated %}
+          <td><button class="btn btn-danger btn-sm" onclick="sendDeleteRequest('{{ url_for('trade_delete', trade_id=trade.id) }}')">Delete trade</button></td>
+        {% endif %}
       </tr>
       {% else %}
       <tr>
@@ -155,4 +159,14 @@
       {% endfor %}
     </table>
   </div>
+  <script>
+    function sendDeleteRequest(deleteUrl) {
+      const xhttp = new XMLHttpRequest()
+      xhttp.onload = function() {
+        window.location.href = xhttp.responseURL
+      }
+      xhttp.open("DELETE", deleteUrl, true)
+      xhttp.send();
+    }
+  </script>
   {% endblock %}

@@ -7,7 +7,7 @@ class Portfolio(Base):
 
     account_id = db.Column(db.Integer, db.ForeignKey('account.id'),
     nullable=False)
-    trades = db.relationship("Trade", backref="trade", lazy = True)
+    trades = db.relationship("Trade", backref="portfolio", lazy = True)
 
     name = db.Column(db.String(144), nullable=False)
 

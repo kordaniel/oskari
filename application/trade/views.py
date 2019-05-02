@@ -1,14 +1,14 @@
 from flask import redirect, render_template, request, url_for
-from flask_login import login_required, current_user
+from flask_login import current_user
 
-from application import app, db
+from application import app, db, login_required
 from application.stocks.models import Stock
 from application.trade.models import  Trade
 from application.trade.forms import TradeForm, CloseTradeForm
 from application.portfolio.models import Portfolio
 
 @app.route("/trade/new/<portfolio_id>", methods= ["POST"])
-@login_required
+@login_required()
 def trade_create(portfolio_id):
     portfolio = Portfolio.query.get(portfolio_id)
     form = TradeForm(request.form)
@@ -34,7 +34,7 @@ def trade_create(portfolio_id):
     return redirect(url_for("portfolios_view", portfolio_id=portfolio_id))
 
 @app.route("/trade/close", methods = ["GET"])
-@login_required
+@login_required()
 def trade_finish():
     trade = Trade.query.get(request.args.get("trade_id"))
     portfolio_id = request.args.get("portfolio_id")
@@ -48,7 +48,7 @@ def trade_finish():
             form = form, trade = trade)
 
 @app.route("/trade/close/<trade_id>", methods = ["POST"])
-@login_required
+@login_required()
 def trade_close(trade_id):
     # fix set sell_date, now only flask updates date_modified
     trade = Trade.query.get(trade_id)
@@ -63,3 +63,17 @@ def trade_close(trade_id):
     db.session().commit()
 
     return redirect(url_for("portfolios_view", portfolio_id = form.portfolio_id.data))
+
+@app.route("/trade/delete/<trade_id>", methods=["DELETE"])
+@login_required()
+def trade_delete(trade_id):
+    trade = Trade.query.get(trade_id)
+    portfolio_id = trade.portfolio_id
+
+    if trade is None:
+        return "ei poistettu"
+    
+    db.session.delete(trade)
+    db.session.commit()
+
+    return redirect(url_for("portfolios_view", portfolio_id=portfolio_id))

@@ -4,6 +4,9 @@
 ## Testitunnukset
 Sovellus luo automaattisesti administrator/topsekret tunnukset taulujen luonnin yhteydessä. Tämän jälkeen sovellukseen voi rekisteröityä normaalisti sivujen kautta. Olen myös luonut valmiiksi tunnuksen hello/world.
 
+## TODO
+Lisää confirmation-sivu kaikille(?) poisto-operaatioille!
+
 ## Osan 4 etapit
 Sovelluksessa on monimutkaisempi tietokantakysely joka kohdistuu tauluihin Trade, Tradestock ja Stock. Nämä on määritelty portfolio:n modeliin
 

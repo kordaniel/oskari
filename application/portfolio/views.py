@@ -50,4 +50,8 @@ def portfolios_create():
     db.session().add(p)
     db.session().commit()
 
-    return redirect(url_for("portfolios_index"))
+    return redirect(url_for("portfolios_view", portfolio_id = p.id))
+
+#@app.route("/portfolios/delete/<portfolio_id>", methods=["GET","POST"])
+#@login_required()
+#def portfolios_delete(portfolio_id):
