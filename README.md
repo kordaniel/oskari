@@ -7,6 +7,7 @@ Sovellus luo automaattisesti administrator/topsekret tunnukset taulujen luonnin 
 ## TODO
 -Lisää confirmation-sivu kaikille(?) poisto-operaatioille!
 -Trades-view:iin tarvitaan oikeuksien tarkistamista!
+-portfolion viewseihin oikeuksien tarkistaminen (poisto)
 -portfolio.html:ään myös oikeuksien tarkistamista lisättävä!
 -lisättävä notifikaatiot (esim poistojen jälkeen)
 

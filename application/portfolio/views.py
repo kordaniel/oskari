@@ -59,6 +59,8 @@ def portfolios_delete(portfolio_id):
     #user_id = portfolio.user_id
     print("*_*_*_"*100)
     if portfolio is not None:
+        for trade in portfolio.trades:
+            db.session.delete(trade)
         db.session.delete(portfolio)
         db.session.commit()
     
