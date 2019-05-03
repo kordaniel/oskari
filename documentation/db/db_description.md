@@ -11,6 +11,12 @@ Näin ollen voidaan aina olla varmoja siitä, että mistä tahansa taulusta pois
 
 Vastaavasti jos poistetaan rivi jostain taulusta, mikä on "alempana" hierarkiassa, esim. Trade, niin poistetaan Trade-rivi sekä kaikki siihen kuuluvat rivit hierarkiassa alempana olevista tauluista, mutta ei hierarkiassa ylempänä olevista tauluista.  
 
+Koska sovellus luottaa siihen, että tietokanta poistaa riippuvuudet ON DELETE CASCADE:n avulla, kuten myös muutenkin on varmaan järkevää, niin tietokannan täytyy totella viiteavaimien rajoitteita. Herokun PostgreSQL:ässä tämä on käytössä. Lokaalisti ajettaessa on sqlite3-tietokannalle määriteltävä:  
+```
+PRAGMA foreign_keys = ON;
+```  
+Sovellus myös asettaa tämän rajoitteen automaattisesti käyttöön luodessaan tietokannan, joten käyttäjän ei itse tarvitse tästä huolehtia.
+
 ### Kehitysehdotuksia  
 Vaikka tällä hetkellä (pää- tai viiteavaimia) ei muutella, niin varmaan olisi syytä ottaa käyttöön ON UPDATE CASCADE-määreet myös, jotta voitaisiin aina olla varmoja tietokannan eheydestä. Toinen muutos mitä tulen miettimään, on Tradestock-liitostaulun poistaminen ja määritellä Trade:iin kuuluva Stock:in pääavain suoraan Tradeen viiteavaimeksi. Tästä en kyllä ole varma mikä on oikea ratkaisu, kyseessähän on monen suhde yhteen-yhteys (kauppa koskee aina vain yhtä osaketta, mutta osake voi tietysti kuulua äärettömän moneen kauppaan), mutta toisaalta Trade:ssa on niin monta attribuuttia. Kurssin alkupuolella kävin pajassa, ja silloin neuvottiin käyttämään liitostaulua, joten olen nyt päätynyt tähän ratkaisuun.  
 
