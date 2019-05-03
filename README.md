@@ -16,18 +16,6 @@ Stock-taulussa on kaikkien tunnettujen yritysten tiedot, nimi sekä kaupankäynt
 | hello         | world     | ei    |
 | testi         | testaus   | on    |
 
-## TODO
-- Yleistää koodia, nyt tehdään samaa asia monta kertaa eri funktioissa, esim view:eissa kun tarkistetaan käyttäjän oikeuksia, Modeleihin lisätä abstrakti model, jolla on kenttä nimi sekä vuorostaan extendaa Basen.
-- Kaikki poisto-operaatiot tapahtuvat välittömästi, tähän pitäisi lisätä vahvistus ennen poistoa.
-- Trades-view:iin tarvitaan oikeuksien tarkistamista!
-- portfolio.html:ään myös oikeuksien tarkistamista lisättävä!
-- Lisättävä notifikaatiot (esim poistojen jälkeen).
-- Sekä myöskin virheviestit lisättävä, nyt ohjelma vain ohjaa eri sivuille tilanteesta riippuen, eikä näytä mitään virheviestiä.
-- Salkkuun mahdollisuus muuttaa salkun nimeä.
-- Riippuen siitä mistä tullaan ja ollaanko ADMIN vai USER, niin ohjausta paranneltava/muutettava jostain kohdista. Nyt toiminta osittain epäloogista.
-- Tällä hetkellä sivuilla näytetään datepicker, joka myöskin validoidaan, mutta päivämääriä ei käytetä sovelluslogiikan puolella ollenkaan. HTML5-Datepicker ei myöskään toimi esim. safari-selaimella. Tähän varmaan on kehitettävä jonkunlainen javascript-hässäkkä, joka myöskin tukee kellonaikoja. Chrome ainakin renderöi tuon oikein.
-
-
 ### Asennusohje
 [Asennus- sekä käyttöohje](https://github.com/kordaniel/oskari/tree/master/documentation/user_guide.md)  
 ### Tietokantakaavio
@@ -37,7 +25,10 @@ Alkuperäiset:
 [yuml.me formatoitu dokumentti](https://github.com/kordaniel/oskari/tree/master/documentation/db/db_schema_yuml.txt)  
 
 ### Käyttäjätarinoita
-[Kaikki käyttäjät](https://github.com/kordaniel/oskari/tree/master/documentation/user_stories.md)
+[Kaikki käyttäjät](https://github.com/kordaniel/oskari/tree/master/documentation/user_stories.md)  
+
+### Jatkokehitysideat
+[TODO](https://github.com/kordaniel/oskari/tree/master/documentation/todo.md)  
 
 ## Toimintoja
 * Sovellukseen voi lisätä osakkeita, joilla on attribuutit nimi sekä ticker (uniikki lyhenne)
