@@ -2,7 +2,11 @@
 [Oskari herokussa](https://oskari.herokuapp.com/)
 
 ## Testitunnukset
-Sovellus luo automaattisesti administrator/topsekret tunnukset taulujen luonnin yhteydessä. Tämän jälkeen sovellukseen voi rekisteröityä normaalisti sivujen kautta. Olen myös luonut valmiiksi tunnuksen hello/world.
+| Käyttäjätunus | Salasana  | Admin |
+|---------------|-----------|-------|
+| administrator | topsekret | on    |
+| hello         | world     | ei    |
+| testi         | testaus   | on    |
 
 ## TODO
 -Lisää confirmation-sivu kaikille(?) poisto-operaatioille!

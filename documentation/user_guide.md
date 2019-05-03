@@ -40,7 +40,7 @@ Jos haluat tyhjentää tietokannan jostain syystä, niin aja seuraavat komennot 
 ```
 heroku pg:reset DATABASE
 <vastaa kysymyksiin>
-heroku reset
+heroku restart
 ```
 
 # Käyttöohje

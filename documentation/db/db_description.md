@@ -11,7 +11,7 @@ Näin ollen voidaan aina olla varmoja siitä, että mistä tahansa taulusta pois
 
 Vastaavasti jos poistetaan rivi jostain taulusta, mikä on "alempana" hierarkiassa, esim. Trade, niin poistetaan Trade-rivi sekä kaikki siihen kuuluvat rivit hierarkiassa alempana olevista tauluista, mutta ei hierarkiassa ylempänä olevista tauluista.  
 
-Koska sovellus luottaa siihen, että tietokanta poistaa riippuvuudet ON DELETE CASCADE:n avulla, kuten myös muutenkin on varmaan järkevää, niin tietokannan täytyy totella viiteavaimien rajoitteita. Herokun PostgreSQL:ässä tämä on käytössä. Lokaalisti ajettaessa on sqlite3-tietokannalle määriteltävä:  
+Koska sovellus luottaa siihen, että tietokanta poistaa riippuvuudet ON DELETE CASCADE:n avulla, kuten myös muutenkin on varmaan järkevää, niin tietokannan täytyy totella viiteavaimien rajoitteita. Herokun PostgreSQL:ässä tämä on automaattisesti käytössä. Lokaalisti ajettaessa on sqlite3-tietokannalle määriteltävä:  
 ```
 PRAGMA foreign_keys = ON;
 ```  
