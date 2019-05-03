@@ -8,7 +8,7 @@ Nyt voit ajaa sovelluksen komennolla '_python3 run.py_'.
 
 Lokaalisti ajettuna sovellus luo automaattisesti tarvitsemansa _data.db_ sqlite3-tiedoston hakemistoon _application_, sekä sen jälkeen luo tarvitsemansa tietokantataulut automaattisesti.  
 
-Sovellus myös lisää ylläpitäjän tunnuksen, jolla on tunnus/salasanapari: _admininstrator/topsekret_. Tämä tapahtuu application/__init__.py -tiedoston rivillä 104.
+Sovellus myös lisää ylläpitäjän tunnuksen, jolla on tunnus/salasanapari: _admininstrator/topsekret_.  
 
 
 ### Sovelluksen ajaminen herokussa

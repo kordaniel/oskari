@@ -1,6 +1,19 @@
 # Tietokanta
 ![Tietokantakuvaus](https://raw.githubusercontent.com/kordaniel/oskari/master/documentation/db/db_schema_vko6.jpg)  
 
+Sovellus on suunniteltu niin, että se käyttää hyväkseen tietokannan tarjoamaa CASCADE deleteä. Kuten CREATE TABLE-lauseista voi lukea, niin Role, Account sekä Stock -tauluilla ei ole tätä käytössä. Näin ollen jos halutaan poistaa jokin rivi näistä tauluista, niin se täytyy tehdä erikseen. Tarkoitus onkin, että näin tulisi toimia. Rooleja on tällä hetkellä vain kaksi, eikä niitä voi lisätä/muutella mistään. Käyttäjiä ja Osakkeita ei tietenkään tule poistaa muutoin kuin käyttöliittymän kautta.
+
+Nyt koska Tradestockilla on viiteavain Traden pääavaimeen sekä myös ON DELETE CASCADE määriteltynä, niin jos Trade poistetaan, niin tietokanta poistaa myös Tradestockin rivit jotka liittyvät poistettavaan Trade-riviin ja Stock-taulun rivi jää järjestelmään. Vastaavasti koska Trade:iin on määritelty ON DELETE CASCADE viiteavain Portfolio:n pääavaimeen, niin Portfolio-rivin poistaminen poistaa kaikki siihen kuuluvat Trade-rivit.
+
+Aivan vastaavasti on myös määritelty tauluille Portfolio sekä Userrole ON DELETE CASCADE-viiteavaimet taululle Account.  
+
+Näin ollen voidaan aina olla varmoja siitä, että mistä tahansa taulusta poistettaessa, niin mihinkään tauluun ei jää "orpoja" rivejä. Tietokannassa siis on tietynlainen "järjestys", hierarkia. Jos poistetaan käyttäjä, niin poistetaan myös kaikki käyttäjään liittyvät rivit kaikista tauluista sekä myös jatketaan poistamista hierarkiassa aina alaspäin, aina tauluihin Userrole sekä Tradestock:iin asti.  
+
+Vastaavasti jos poistetaan rivi jostain taulusta, mikä on "alempana" hierarkiassa, esim. Trade, niin poistetaan Trade-rivi sekä kaikki siihen kuuluvat rivit hierarkiassa alempana olevista tauluista, mutta ei hierarkiassa ylempänä olevista tauluista.  
+
+### Kehitysehdotuksia  
+Vaikka tällä hetkellä (pää- tai viiteavaimia) ei muutella, niin varmaan olisi syytä ottaa käyttöön ON UPDATE CASCADE-määreet myös, jotta voitaisiin aina olla varmoja tietokannan eheydestä. Toinen muutos mitä tulen miettimään, on Tradestock-liitostaulun poistaminen ja määritellä Trade:iin kuuluva Stock:in pääavain suoraan Tradeen viiteavaimeksi. Tästä en kyllä ole varma mikä on oikea ratkaisu, kyseessähän on monen suhde yhteen-yhteys (kauppa koskee aina vain yhtä osaketta, mutta osake voi tietysti kuulua äärettömän moneen kauppaan), mutta toisaalta Trade:ssa on niin monta attribuuttia. Kurssin alkupuolella kävin pajassa, ja silloin neuvottiin käyttämään liitostaulua, joten olen nyt päätynyt tähän ratkaisuun.  
+
 ### Create table lauseet
 ```
 CREATE TABLE role (
@@ -30,7 +43,7 @@ CREATE TABLE account (
 CREATE TABLE userrole (
         user_id INTEGER,
         role_id INTEGER,
-        FOREIGN KEY(user_id) REFERENCES account (id),
+        FOREIGN KEY(user_id) REFERENCES account (id) ON DELETE CASCADE,
         FOREIGN KEY(role_id) REFERENCES role (id)
 )
 
@@ -51,7 +64,7 @@ CREATE TABLE portfolio (
         account_id INTEGER NOT NULL,
         name VARCHAR(144) NOT NULL,
         PRIMARY KEY (id),
-        FOREIGN KEY(account_id) REFERENCES account (id)
+        FOREIGN KEY(account_id) REFERENCES account (id) ON DELETE CASCADE
 )
 
 CREATE TABLE trade (
@@ -63,14 +76,13 @@ CREATE TABLE trade (
         buyprice FLOAT NOT NULL,
         sellprice FLOAT,
         PRIMARY KEY (id),
-        FOREIGN KEY(portfolio_id) REFERENCES portfolio (id)
+        FOREIGN KEY(portfolio_id) REFERENCES portfolio (id) ON DELETE CASCADE
 )
 
 CREATE TABLE tradestock (
-        trade_id INTEGER NOT NULL,
-        stock_id INTEGER NOT NULL,
-        PRIMARY KEY (trade_id, stock_id),
-        FOREIGN KEY(trade_id) REFERENCES trade (id),
+        trade_id INTEGER,
+        stock_id INTEGER,
+        FOREIGN KEY(trade_id) REFERENCES trade (id) ON DELETE CASCADE,
         FOREIGN KEY(stock_id) REFERENCES stock (id)
 )
 ```  
