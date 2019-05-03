@@ -8,6 +8,7 @@
 ```
 SELECT stock.id AS stock_id, stock.date_created AS stock_date_created, stock.date_modified AS stock_date_modified, stock.ticker AS stock_ticker, stock.name AS stock_name
   FROM stock ORDER BY stock.name
+  LIMIT ? OFFSET ?
 ```
 - Rekisteröityä järjestelmään.
 ```
@@ -62,15 +63,41 @@ DELETE FROM account WHERE account.id = ?
 
 #### Edellisten lisäksi voi:
 - Näkee listan kaikista käyttäjistä järjestelmässä. Sivutus käytössä (5 käyttäjää/sivu).
+```
+SELECT account.id AS account_id, account.date_created AS account_date_created, account.date_modified AS account_date_modified, account.name AS account_name, account.username AS account_username, account.password AS account_password, account.email AS account_email
+  FROM account ORDER BY account.name
+  LIMIT ? OFFSET ?
+```
 - Voi asettaa/poistaa ylläpitäjän roolin kaikilta käyttäjilta.
+```
+Asettaa:
+INSERT INTO userrole (user_id, role_id) VALUES (?, ?)
+Poistaa:
+DELETE FROM userrole WHERE userrole.user_id = ? AND userrole.role_id = ?
+```
 - Voi muokata minkä tahansa käyttäjän tietoja.
 - Voi poistaa minkä tahansa käyttäjän tilin.
+```
+Katso kohta rekisteröitynyt käyttäjä, samat kyselyt täällä
+```
 
 - Muokata osakkeiden tietoja.
+```
+UPDATE stock SET date_modified=CURRENT_TIMESTAMP, ticker=?, name=? WHERE stock.id = ?
+```
 - Poistaa osakkeita järjestelmästä, ainoastaan jos osake ei ole liitetty mihinkään kauppatapahtumaan.
-
+```
+DELETE FROM stock WHERE stock.id = ?
+```
 - Näkee listan kaikista salkuista järjestelmässä. Tähän pitää vielä lisätä sivutus..
+```
+SELECT portfolio.id AS portfolio_id, portfolio.date_created AS portfolio_date_created, portfolio.date_modified AS portfolio_date_modified, portfolio.account_id AS portfolio_account_id, portfolio.name AS portfolio_name
+  FROM portfolio ORDER BY portfolio.name
+```
 - Näkee kaikkien käyttäjien kaikkien salkkujen sisällöt.
 - Kirjata kauppoja kaikkiin salkkuihin.
 - Poistaa minkä tahansa kaupan.
 - Poistaa minkä tahansa salkun.
+```
+Nämä kyselyt ovat myös samanmuotoisia kuin kohdassa rekisteröitynyt käyttäjä.
+```
