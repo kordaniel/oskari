@@ -2,15 +2,17 @@
 Sovelluksen voi ajaa lokaalisti tai herokussa. Toimiakseen sovellus vaatii ympäristöltä python3 sekä pip:in. Testatut tietokannat mitkä toimivat varmasti on sqlite sekä herokun PostgreSQL. Sovelluksen saa helpoiten omaan käyttöön kloonaamalla tämän repositorion git:in avulla. Sovelluksen tarvitsemat moduulit ovat listattuna tiedostossa requirements.txt.
 
 ### Sovelluksen ajaminen lokaalisti sekä sen tarvitsemat moduulit
-Kun olet kloonannut repositorion, siirry hakemistoon oskari sekä luo sen sisälle virtuaaliympäristö komennolla _python3 -m venv venv_. Tämän jälkeen voit ottaa juuri luodun python-virtuaaliympäristön käyttöön komennolla _source venv/bin/activate_. Seuraavaksi sinun on ladattava ohjelman tarvitsemat moduulit komennolla _pip install -r requirements.txt_.  
+Kun olet kloonannut repositorion, siirry hakemistoon oskari sekä luo sen sisälle virtuaaliympäristö komennolla '_python3 -m venv venv_'. Tämän jälkeen voit ottaa juuri luodun python-virtuaaliympäristön käyttöön suorittamalla komennon '_source venv/bin/activate_'. Seuraavaksi sinun on ladattava ohjelman tarvitsemat moduulit komennolla '_pip install -r requirements.txt_'.  
 
-Nyt voit ajaa sovelluksen komennolla _python3 run.py_.  
+Nyt voit ajaa sovelluksen komennolla '_python3 run.py_'.  
 
-Lokaalisti ajettuna sovellus luo automaattisesti tarvitsemansa _data.db_ sqlite3-tiedoston hakemistoon _application_.
+Lokaalisti ajettuna sovellus luo automaattisesti tarvitsemansa _data.db_ sqlite3-tiedoston hakemistoon _application_, sekä sen jälkeen luo tarvitsemansa tietokantataulut automaattisesti.  
+
+Sovellus myös lisää ylläpitäjän tunnuksen, jolla on tunnus/salasanapari: _admininstrator/topsekret_. Tämä tapahtuu application/__init__.py -tiedoston rivillä 104.
 
 
 ### Sovelluksen ajaminen herokussa
-Sovelluksen mukana tulee tiedosto Procfile, johon on määritelty herokun tarvitsemat komennot sovelluksen ajamiseen. Heroku lataa kaikki moduulit automaattisesti ja tarjoaa tarvittavan PostgreSQL-tietokannan.  
+Sovelluksen mukana tulee tiedosto '_Procfile_', johon on määritelty herokun tarvitsemat komennot sovelluksen ajamiseen. Sovelluksen mukana tulee myös tiedosto '_requirements_', joka sisältää listauksen kaikista sovelluksen tarvitsemista moduuleista. Heroku lataa kaikki moduulit automaattisesti sekä tarjoaa tarvittavan PostgreSQL-tietokannan.  
 
 Sovellus luo tarvitsemansa tietokantataulut sekä ylläpitäjän käyttäjätunnuksen automaattisesti, ylläpitäjän luontia varten sovellus tarvitsee seuraavat ympäristömuuttujat:  
 ```
@@ -20,7 +22,7 @@ SU_PASSWD - pääkäyttäjän salasana
 SU_EMAIL - pääkäyttäjän sähköpostiosoite  
 ```
 
-Sovellus asennetaan herokuun käyttämällä heroku toolbeltiä, joka on oltava asennettuna paikalliselle koneelle. Jos ajat kaikki komennot, niin muuta konfiguraatiota ei tarvitse tehdä. Kaiken pystyy todennäköisesti myös tekemään herokun nettisivujen kautta, mutta suosittelen allaolevia komentoja niiden helppouden vuoksi. Komennot on ajettava kloonatun repositorion juuressa:  
+Sovellus asennetaan herokuun käyttämällä heroku toolbeltiä, joka on oltava asennettuna paikalliselle koneelle. Jos ajat kaikki komennot, niin muuta konfiguraatiota ei tarvitse tehdä. Kaiken pystyy todennäköisesti myös tekemään herokun nettisivujen kautta, mutta suosittelen allaolevia komentoja niiden yksinkertaisuuden vuoksi. Komennot on ajettava kloonatun repositorion juuressa:  
 
 ```
 heroku create <valitsemasi-nimi>  
@@ -31,10 +33,18 @@ heroku config:set SU_EMAIL="<ylläpitäjän sposti>"
 git remote add heroku <https://git.heroku.com/...>, missä ... on herokun palauttama osoite.  
 tarvittaessa git add . sekä git commit -m "lähetys herokuun"  
 git push heroku master  
+```  
+
+Jos haluat tyhjentää tietokannan jostain syystä, niin aja seuraavat komennot kloonatun repositorion juuressa:  
+
+```
+heroku pg:reset DATABASE
+<vastaa kysymyksiin>
+heroku reset
 ```
 
 # Käyttöohje
-Kun sovellus ajetaan ensimmäisen kerran niin se luo automaattisesti ylläpitäjän roolilla varustetun käyttäjän. Jos sovellusta ei ajeta herokussa, kuten esim. paikallisesti omalla koneella, niin tunnukseksi tulee administrator, jolla on salasana topsekret. Herokussa ajettuna ylläpitäjän tunnus määräytyy ympäristömuuttujissa olevien tietojen perusteella. Tätä käyttäjää ei pysty poistamaan, eikä siltä myöskään voi poista ylläpitäjän roolia.  
+Kun sovellus ajetaan ensimmäisen kerran niin se siis luo automaattisesti ylläpitäjän roolilla varustetun käyttäjän. Tätä käyttäjää ei pysty poistamaan, eikä siltä myöskään voi poista ylläpitäjän roolia. Muutoin ylläpitäjän profiilia voi muokata kuten myös kaikkia muitakin. Suosittelen ainakin salasanan vaihtoa! :)  
 
 Tulevat käyttäjät voivat rekisteröityä etusivun linkin kautta, jolloin sovellusta voi ruveta käyttämään. Ylläpitäjän roolin omaavat käyttäjät, eli alussa vain administrator-käyttäjä voi asettaa sekä poistaa kaikilta käyttäjiltä ylläpitäjän roolin. Tämä tapahtuu Users-sivulta, joka näkyy vain ylläpitäjille. Ylläpitäjät voivat myös poistaa käyttäjiä samalta sivulta.  
 
