@@ -17,6 +17,7 @@ Stock-taulussa on kaikkien tunnettujen yritysten tiedot, nimi sekä kaupankäynt
 | testi         | testaus   | on    |
 
 ## TODO
+- Yleistää koodia, nyt tehdään samaa asia monta kertaa eri funktioissa, esim view:eissa kun tarkistetaan käyttäjän oikeuksia, Modeleihin lisätä abstrakti model, jolla on kenttä nimi sekä vuorostaan extendaa Basen.
 - Kaikki poisto-operaatiot tapahtuvat välittömästi, tähän pitäisi lisätä vahvistus ennen poistoa.
 - Trades-view:iin tarvitaan oikeuksien tarkistamista!
 - portfolio.html:ään myös oikeuksien tarkistamista lisättävä!
