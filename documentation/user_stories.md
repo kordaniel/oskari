@@ -21,14 +21,38 @@ INSERT INTO account (date_created, date_modified, name, username, password, emai
 INSERT INTO stock (date_created, date_modified, ticker, name) VALUES (CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, ?, ?)
 ```
 - Luoda itselleen salkkuja.
-   ```
-   INSERT INTO portfolio (date_created, date_modified, account_id, name) VALUES (CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, ?, ?)
-   ```
+```
+INSERT INTO portfolio (date_created, date_modified, account_id, name) VALUES (CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, ?, ?)
+```
   - Sekä poistaa omia salkkuja (kauppoineen kaikkineen).
+  ```
+  DELETE FROM portfolio WHERE portfolio.id = ?
+  -Tietokanta poistaa riippuvuudet CASCADE deletellä, jos portfoliolla on riippuvuuksia.
+  ```
+
 - Kirjata salkkuihin kauppoja (osto- sekä myyntitapahtuma).
+```
+Osto:
+INSERT INTO trade (date_created, date_modified, portfolio_id, amount, buyprice, sellprice) VALUES (CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, ?, ?, ?, ?)
+INSERT INTO tradestock (trade_id, stock_id) VALUES (?, ?)
+Myynti:
+UPDATE trade SET date_modified=CURRENT_TIMESTAMP, sellprice=? WHERE trade.id = ?
+```
   - Sekä poistaa näitä yksittäisiä kauppoja.
+  ```
+  DELETE FROM tradestock WHERE tradestock.trade_id = ? AND tradestock.stock_id = ?
+  DELETE FROM trade WHERE trade.id = ?
+  ```
 - Muokata omia tietoja.
+```
+UPDATE account SET date_modified=CURRENT_TIMESTAMP, name=?, username=?, email=? WHERE account.id = ?
+```
 - Poistaa oman tilinsä, jolloin kaikki käyttäjään liitetyt tiedot poistetaan järjestelmästä.
+```
+DELETE FROM userrole WHERE userrole.user_id = ? AND userrole.role_id = ?
+DELETE FROM account WHERE account.id = ?
+-jonka lisäksi tietokanta poistaa muut riippuvuudet (portfolio=>..) CASCADE-deletellä, jos niitä muuten jäisi.
+```
 
 - User story:  
   "Rekisteröityneenä käyttäjänä haluan mahdollisuuden luoda itselleni erillisiä salkkuja, joihin voin kirjata tekemiäni osakeostoja sekä -myyntejä. Näin voin nähdä mitä osakkeita minulla on tietyssä salkussa tällä hetkellä sekä myös selata näitten historiaa, sisältäen myyntini."
