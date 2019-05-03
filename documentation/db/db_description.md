@@ -21,7 +21,7 @@ Sovellus myös asettaa tämän rajoitteen automaattisesti käyttöön luodessaan
 Vaikka tällä hetkellä (pää- tai viiteavaimia) ei muutella, niin varmaan olisi syytä ottaa käyttöön ON UPDATE CASCADE-määreet myös, jotta voitaisiin aina olla varmoja tietokannan eheydestä. Toinen muutos mitä tulen miettimään, on Tradestock-liitostaulun poistaminen ja määritellä Trade:iin kuuluva Stock:in pääavain suoraan Tradeen viiteavaimeksi. Tästä en kyllä ole varma mikä on oikea ratkaisu, kyseessähän on monen suhde yhteen-yhteys (kauppa koskee aina vain yhtä osaketta, mutta osake voi tietysti kuulua äärettömän moneen kauppaan), mutta toisaalta Trade:ssa on niin monta attribuuttia. Kurssin alkupuolella kävin pajassa, ja silloin neuvottiin käyttämään liitostaulua, joten olen nyt päätynyt tähän ratkaisuun.  
 
 ### Monimutkaisemmat yhteenvetokyselyt
-Sovelluksessa on monimutkaisempi tietokantakysely joka kohdistuu tauluihin Trade, Tradestock ja Stock. Nämä on määritelty portfolio:n modeliin:
+Sovelluksessa on pari monimutkaisempaa tietokantakyselyä, jotka kohdistuvat tauluihin Portfolio, Trade, Tradestock ja Stock. Nämä on määritelty portfolio:n modeliin. Lauseet siis hakevat tietokannasta tietoa avoimista sekä suljetuista kaupoista. Suljettujen kauppojen yhteydessä lasketaan kaupan tuotto, kahden desimaalin tarkkuudella. Kaikille kyselyille annetaan parametrina Portfolio.id, jotta kysely kohdistuisi oikeisiin kauppoihin. Nämä kyselyt löytyvät Portfolion modelista.
 
 ### Portfolio-sivulla näytettävät avoimet kaupat
 ```
