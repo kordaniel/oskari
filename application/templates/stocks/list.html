@@ -28,6 +28,14 @@
       </td>
       {% endif %}
     </tr>
+    {% else %}
+    <tr>
+      {% if current_user.is_authenticated and current_user.is_superuser() is sameas true %}
+        <td colspan="5">No Stocks</td>
+      {% else %}
+        <td colspan="4">No Stocks</td>
+      {% endif %}
+    </tr>
     {% endfor %}
   </table>
   {% if stocks.has_prev %}<a href="{{ url_for('stocks_index', page=stocks.prev_num) }}">&lt;&lt; Previous page</a>{% else %}&lt;&lt; Previous page{% endif %} |

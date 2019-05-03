@@ -15,7 +15,7 @@
       {% endif %}
       
     </tr>
-    {% for user in users %}
+    {% for user in users.items %}
       <tr>
         <td>{{ user.name }}</td>
         <td><a href="{{ url_for('user_view', user_id=user.id) }}">{{ user.username }}</a></td>
@@ -39,6 +39,9 @@
     {% endfor %}
   </table>
   
+  {% if users.has_prev %}<a href="{{ url_for('users_index', page=users.prev_num) }}">&lt;&lt; Previous page</a>{% else %}&lt;&lt; Previous page{% endif %} |
+  {% if users.has_next %}<a href="{{ url_for('users_index', page=users.next_num) }}">Next page &gt;&gt;</a>{% else %}Next page &gt;&gt;{% endif %}
+
   <script>
     function sendDeleteRequest(deleteUrl) {
       const xhttp = new XMLHttpRequest()

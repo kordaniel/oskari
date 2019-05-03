@@ -113,7 +113,7 @@ def auth_delete_profile(user_id):
         # prevent admin user with id == 1 to be deleted,
         # should prob. change it to check if no users with
         # admin role remain
-        return redirect(url_for("users_index"))
+        return redirect(url_for("users_index", page=1))
     
     if int(user_id) != current_user.id and not current_user.is_superuser():
         return login_manager.unauthorized()
@@ -125,7 +125,7 @@ def auth_delete_profile(user_id):
         db.session.commit()
     
     if int(user_id) != current_user.id:
-        return redirect(url_for("users_index"))
+        return redirect(url_for("users_index", page=1))
     
     return redirect(url_for("index"))
 

@@ -5,12 +5,14 @@ from application import app, db, login_manager, login_required
 from application.auth.models import User, Role
 
 
-@app.route("/users", methods=["GET"])
+@app.route("/users/<int:page>", methods=["GET"])
 @login_required(role="ADMIN")
-def users_index():
-    return render_template("/users/all_users.html", users = User.query.order_by(User.name).all())
+def users_index(page=1):
+    per_page=5
+    return render_template("/users/all_users.html", 
+        users = User.query.order_by(User.name).paginate(page, per_page, error_out=False))
 
-@app.route("/users/<user_id>", methods = ["GET"])
+@app.route("/users/profile/<user_id>", methods=["GET"])
 @login_required()
 def user_view(user_id):
     if (not current_user.is_superuser() and
@@ -24,7 +26,7 @@ def user_view(user_id):
     
     return render_template("users/user.html", user = user)
 
-@app.route("/users/superuser/<user_id>", methods = ["POST"])
+@app.route("/users/superuser/<user_id>", methods=["POST"])
 @login_required(role="ADMIN")
 def user_switch_superuser_status(user_id):
     if user_id.isdigit():
@@ -39,4 +41,4 @@ def user_switch_superuser_status(user_id):
             pass
         db.session.commit()
     
-    return redirect(url_for("users_index"))
+    return redirect(url_for("users_index", page=1))

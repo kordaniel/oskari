@@ -55,7 +55,13 @@ def portfolios_create():
 @app.route("/portfolios/delete/<portfolio_id>", methods=["DELETE"])
 @login_required()
 def portfolios_delete(portfolio_id):
-    # TODO: ADD CREDENTIALS CHECKING
+    if not portfolio_id.isdigit():
+        return redirect("index")
+
+    if (not current_user.has_portfolio_with_id(portfolio_id) and 
+            not current_user.is_superuser()):
+        return login_manager.unauthorized()
+    
     portfolio = Portfolio.query.get(portfolio_id)
 
     if portfolio is not None:

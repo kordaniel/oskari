@@ -62,3 +62,6 @@ class User(Base):
 
     def get_roles(self):
         return [r.name for r in self.roles]
+    
+    def has_portfolio_with_id(self, portfolio_id):
+        return any(p.id == int(portfolio_id) for p in self.portfolios)
