@@ -1,6 +1,7 @@
 # Going forward
 
 ## TODO
+- Muuttaa salasanan tallenusta, selväkielisestä tiivisteeseen, esim bcryptin avulla.
 - Yleistää koodia, nyt tehdään samaa asia monta kertaa eri funktioissa, esim view:eissa kun tarkistetaan käyttäjän oikeuksia, Modeleihin lisätä abstrakti model, jolla on kenttä nimi sekä vuorostaan extendaa Basen.
 - Kaikki poisto-operaatiot tapahtuvat välittömästi, tähän pitäisi lisätä vahvistus ennen poistoa.
 - Trades-view:iin tarvitaan oikeuksien tarkistamista!

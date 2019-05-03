@@ -4,13 +4,26 @@
 
 ### Rekisteröitymätön
 #### Voi:  
-- Nähdä listauksen kaikista sovelluksen tuntemista osakkeista. Sivutus käytössä (10 osaketta/sivu).
+- Nähdä listauksen kaikista sovelluksen tuntemista osakkeista, aakkosjärjestyksessä. Sivutus käytössä (10 osaketta/sivu).
+```
+SELECT stock.id AS stock_id, stock.date_created AS stock_date_created, stock.date_modified AS stock_date_modified, stock.ticker AS stock_ticker, stock.name AS stock_name
+  FROM stock ORDER BY stock.name
+```
 - Rekisteröityä järjestelmään.
+```
+INSERT INTO account (date_created, date_modified, name, username, password, email) VALUES (CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, ?, ?, ?, ?)
+```
 
 ### Rekisteröitynyt käyttäjä
 #### Edellisen lisäksi voi:
 - Lisätä osakkeita järjestelmään
+```
+INSERT INTO stock (date_created, date_modified, ticker, name) VALUES (CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, ?, ?)
+```
 - Luoda itselleen salkkuja.
+   ```
+   INSERT INTO portfolio (date_created, date_modified, account_id, name) VALUES (CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, ?, ?)
+   ```
   - Sekä poistaa omia salkkuja (kauppoineen kaikkineen).
 - Kirjata salkkuihin kauppoja (osto- sekä myyntitapahtuma).
   - Sekä poistaa näitä yksittäisiä kauppoja.
