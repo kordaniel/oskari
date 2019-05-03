@@ -20,7 +20,7 @@ Stock-taulussa on kaikkien tunnettujen yritysten tiedot, nimi sekä kaupankäynt
 [Asennus- sekä käyttöohje](https://github.com/kordaniel/oskari/tree/master/documentation/user_guide.md)  
 ### Tietokantakaavio
 [Tietokantakuvaus](https://github.com/kordaniel/oskari/tree/master/documentation/db/db_description.md)  
-Alkuperäiset:  
+#### Alkuperäiset
 [kuva](https://github.com/kordaniel/oskari/tree/master/documentation/db/db_schema.jpg)  
 [yuml.me formatoitu dokumentti](https://github.com/kordaniel/oskari/tree/master/documentation/db/db_schema_yuml.txt)  
 
