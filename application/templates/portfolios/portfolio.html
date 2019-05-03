@@ -5,7 +5,6 @@
       <h2>Portfolio: {{ portfolio.name }}</h2>
       <ul>
         <li>Portfolio owner: {{ portfolio.account_name() }}</li>
-        <li><a href="{{ url_for('user_view', user_id=portfolio.account_id) }}">Back to profile</a></li>
       </ul>
     </div>
 
