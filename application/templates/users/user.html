@@ -14,7 +14,9 @@
 
     <p><a class="btn btn-dark" href="{{ url_for('auth_edit_profile', user_id=user.id) }}">Update Profile</a></p>
     <p><a class="btn btn-dark" href="{{ url_for('auth_change_password', user_id=user.id) }}">Change Password</a></p>
-    <p><a class="btn btn-danger" href="{{ url_for('auth_edit_profile', user_id=user.id) }}">Delete Account</a></p>
+    {% if user.get_id() != 1 %}
+    <p><button class="btn btn-danger" onclick="sendDeleteRequest('{{ url_for('auth_delete_profile', user_id=user.id) }}')">Delete Account</button></p>
+    {% endif %}
   </div>
   
   <div>
@@ -28,4 +30,14 @@
     </ul>
   </div>
 
+  <script>
+    function sendDeleteRequest(deleteUrl) {
+      const xhttp = new XMLHttpRequest()
+      xhttp.onload = function() {
+        window.location.href = xhttp.responseURL
+      }
+      xhttp.open("DELETE", deleteUrl, true)
+      xhttp.send();
+    }
+  </script>
   {% endblock %}

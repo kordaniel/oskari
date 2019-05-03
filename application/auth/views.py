@@ -104,6 +104,31 @@ def auth_change_password(user_id):
 
     return render_template("users/user.html", user = user)
 
+@app.route("/auth/delete/<user_id>", methods = ["DELETE"])
+@login_required()
+def auth_delete_profile(user_id):
+    # TODO: add #<id> to url so we can redirect user
+    # to page where (s)he comes from
+    if not user_id.isdigit() or int(user_id) == 1:
+        # prevent admin user with id == 1 to be deleted,
+        # should prob. change it to check if no users with
+        # admin role remain
+        return redirect(url_for("users_index"))
+    
+    if int(user_id) != current_user.id and not current_user.is_superuser():
+        return login_manager.unauthorized()
+        
+    user = User.query.get(user_id)
+
+    if user is not None:
+        db.session.delete(user)
+        db.session.commit()
+    
+    if int(user_id) != current_user.id:
+        return redirect(url_for("users_index"))
+    
+    return redirect(url_for("index"))
+
 @app.route("/auth/logout", methods = ["GET"])
 @login_required()
 def auth_logout():
