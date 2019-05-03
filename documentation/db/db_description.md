@@ -20,6 +20,43 @@ Sovellus myös asettaa tämän rajoitteen automaattisesti käyttöön luodessaan
 ### Kehitysehdotuksia  
 Vaikka tällä hetkellä (pää- tai viiteavaimia) ei muutella, niin varmaan olisi syytä ottaa käyttöön ON UPDATE CASCADE-määreet myös, jotta voitaisiin aina olla varmoja tietokannan eheydestä. Toinen muutos mitä tulen miettimään, on Tradestock-liitostaulun poistaminen ja määritellä Trade:iin kuuluva Stock:in pääavain suoraan Tradeen viiteavaimeksi. Tästä en kyllä ole varma mikä on oikea ratkaisu, kyseessähän on monen suhde yhteen-yhteys (kauppa koskee aina vain yhtä osaketta, mutta osake voi tietysti kuulua äärettömän moneen kauppaan), mutta toisaalta Trade:ssa on niin monta attribuuttia. Kurssin alkupuolella kävin pajassa, ja silloin neuvottiin käyttämään liitostaulua, joten olen nyt päätynyt tähän ratkaisuun.  
 
+### Monimutkaisemmat yhteenvetokyselyt
+Sovelluksessa on monimutkaisempi tietokantakysely joka kohdistuu tauluihin Trade, Tradestock ja Stock. Nämä on määritelty portfolio:n modeliin:
+
+### Portfolio-sivulla näytettävät avoimet kaupat
+```
+SELECT Stock.ticker, Stock.name, Trade.id, Trade.date_created AS buydate,  Trade.amount, Trade.buyprice
+    FROM Trade, Tradestock, Stock
+    WHERE Trade.portfolio_id = :portfolio_id
+    AND Trade.sellprice IS null
+    AND Trade.id = Tradestock.trade_id
+    AND Tradestock.stock_id = Stock.id;
+```
+### Sekä suljetut/valmiit kaupat:
+#### PostgreSQL:ässä käytettävä lause:
+```
+SELECT Stock.ticker, Stock.name, Trade.date_created AS buydate,
+        Trade.date_modified AS selldate, Trade.amount, Trade.buyprice, Trade.sellprice,
+        ROUND(((Trade.sellprice - Trade.buyprice) * Trade.amount)::numeric, 2) AS total_return
+    FROM Trade, Tradestock, Stock
+    WHERE Trade.portfolio_id = :portfolio_id
+    AND Trade.sellprice IS NOT null
+    AND Trade.id = Tradestock.trade_id
+    AND Tradestock.stock_id = Stock.id
+```
+#### Sqlite3:n vastaava:
+```
+SELECT Stock.ticker, Stock.name,
+        Trade.date_created AS buydate, Trade.date_modified AS selldate, Trade.amount,
+        Trade.buyprice, Trade.sellprice,
+        ROUND(((Trade.sellprice - Trade.buyprice) * Trade.amount), 2) AS total_return
+    FROM Trade, Tradestock, Stock
+    WHERE Trade.portfolio_id = :portfolio_id
+    AND Trade.sellprice IS NOT null
+    AND Trade.id = Tradestock.trade_id
+    AND Tradestock.stock_id = Stock.id
+```
+
 ### Create table lauseet
 ```
 CREATE TABLE role (
