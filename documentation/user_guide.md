@@ -46,6 +46,6 @@ heroku restart
 # Käyttöohje
 Kun sovellus ajetaan ensimmäisen kerran niin se siis luo automaattisesti ylläpitäjän roolilla varustetun käyttäjän. Tätä käyttäjää ei pysty poistamaan, eikä siltä myöskään voi poista ylläpitäjän roolia. Muutoin ylläpitäjän profiilia voi muokata kuten myös kaikkia muitakin. Suosittelen ainakin salasanan vaihtoa! :)  
 
-Tulevat käyttäjät voivat rekisteröityä etusivun linkin kautta, jolloin sovellusta voi ruveta käyttämään. Ylläpitäjän roolin omaavat käyttäjät, eli alussa vain administrator-käyttäjä voi asettaa sekä poistaa kaikilta käyttäjiltä ylläpitäjän roolin. Tämä tapahtuu Users-sivulta, joka näkyy vain ylläpitäjille. Ylläpitäjät voivat myös poistaa käyttäjiä samalta sivulta.  
+Tulevat käyttäjät voivat rekisteröityä etusivun linkin kautta, jolloin sovellusta voi ruveta käyttämään. Ylläpitäjän roolin omaavat käyttäjät, eli alussa vain administrator-käyttäjä voi asettaa sekä poistaa kaikilta käyttäjiltä ylläpitäjän roolin. Tämä tapahtuu All Users-sivulta, joka näkyy vain ylläpitäjille. Ylläpitäjät voivat myös poistaa käyttäjiä samalta sivulta.  
 
 Käyttäjät voivat luoda itselleen salkkuja linkistä add portfolio. Tämän jälkeen käyttäjät voivat kirjata ostotapahtumia salkkuihinsa (Add position). Jotta lisäys onnistuisi, on järjestelmässä ensin oltava kyseinen osake, jonka voi lisätä linkistä Add stock. Kun salkussa sitten on ostotapahtumia, niin ne voidaan sulkea, joka vastaa osakkeen myymistä (Close position).

@@ -1,3 +1,11 @@
+# Oskari
+Oskari on sovellus, joka pitää kirjaa rekisteröityneiden käyttäjien tekemistä osakekaupoista. Käyttäjä voi luoda itselleen salkkuja minne he voivat kirjata tekemiään kauppoja (ostoja sekä myyntejä). Ensin kirjataan osto, jonka jälkeen voidaan kirjata myynti. Jotta sovellus/tietokanta ei paisuisi liian monimutkaiseksi, niin kaupat käsitellään aina kokonaisina, eli käyttäjä ei voi myydä osaa kauppaan kuuluvista osakkeista, vaan tapahtumat käsitellään aina kauppatapahtumana, eli osto- ja myyntimäärät ovat aina yhtä suuria (osakkeitten lkm).  
+
+#### CRUD
+CRUD-tauluja ovat siis User (account), Portfolio sekä Trade (Muokkaus eli U tulee siitä, kun kirjataan myynti niin päivitetään riville onupdate-aikaleima), Nämä myös aina liittyvät toisiinsa. Monesta moneen yhteys on tauluilla User ja Role. Lisäksi Stock-taulu on myös täysi CRUD-taulu.
+
+Stock-taulussa on kaikkien tunnettujen yritysten tiedot, nimi sekä kaupankäyntitunnus. Nämä ovat erillisessä taulussa, jotta niitä olisi helppo päivittää tarvittaessa, esim nimi muuttuu tai mahdollisesti lisätä lisää attribuutteja. Jokaiseen kauppaan(Trade) kuuluu aina yksi Stock, mutta Stock voi tietysti kuulua äärettömän moneen Trade:iin. En ole varma kuuluisiko tässä välissä olla (aito) liitostaulu, kyllä kai?
+
 ### Heroku-url:
 [Oskari herokussa](https://oskari.herokuapp.com/)
 
@@ -9,31 +17,15 @@
 | testi         | testaus   | on    |
 
 ## TODO
--Lisää confirmation-sivu kaikille(?) poisto-operaatioille!
--Trades-view:iin tarvitaan oikeuksien tarkistamista!
--portfolion viewseihin oikeuksien tarkistaminen (poisto)
--portfolio.html:ään myös oikeuksien tarkistamista lisättävä!
--lisättävä notifikaatiot (esim poistojen jälkeen)
+- Kaikki poisto-operaatiot tapahtuvat välittömästi, tähän pitäisi lisätä vahvistus ennen poistoa.
+- Trades-view:iin tarvitaan oikeuksien tarkistamista!
+- portfolio.html:ään myös oikeuksien tarkistamista lisättävä!
+- Lisättävä notifikaatiot (esim poistojen jälkeen).
+- Sekä myöskin virheviestit lisättävä, nyt ohjelma vain ohjaa eri sivuille tilanteesta riippuen, eikä näytä mitään virheviestiä.
+- Salkkuun mahdollisuus muuttaa salkun nimeä.
+- Riippuen siitä mistä tullaan ja ollaanko ADMIN vai USER, niin ohjausta paranneltava/muutettava jostain kohdista. Nyt toiminta osittain epäloogista.
+- Tällä hetkellä sivuilla näytetään datepicker, joka myöskin validoidaan, mutta päivämääriä ei käytetä sovelluslogiikan puolella ollenkaan. HTML5-Datepicker ei myöskään toimi esim. safari-selaimella. Tähän varmaan on kehitettävä jonkunlainen javascript-hässäkkä, joka myöskin tukee kellonaikoja. Chrome ainakin renderöi tuon oikein.
 
-## Osan 4 etapit
-Sovelluksessa on monimutkaisempi tietokantakysely joka kohdistuu tauluihin Trade, Tradestock ja Stock. Nämä on määritelty portfolio:n modeliin
-
-Sovelluksessa on kyllä reilusti bugeja vielä, mutta kaikkia ominaisuuksia voi käyttää. Esimerkiksi Kauppa kirjatessa kenttä nimi on turha, sitä ei käytetä mihinkään. Myös Stockit on ensin lisättävä käsin eri sivulta, ennen kuin niitä voidaan käyttää kaupoissa. Vaikka kauppojen yhteydessä kysytään päivämääriä, niitä ei vielä tallenneta kantaan. Tod.näk monta muutakin, aika vain loppui pahasti kesken tällä viikolla.
-
-Myös Safari-selainta käytettäessä näyttäisi olevan ongelmia päivämäärän syöttämisen kanssa. "Suosittelen chromen tai ffoxin käyttöä..."
-
-### CRUD-toiminnallisuus
-Stock-taululla on täysi CRUD toteutettuna, osakkeita voi lisätä, niiden tietoja voi tarkastella sekä muutella kuten myös listata koko taulun sisällön sekä poistaa rivejä. Tietokantaa muuttavat operaatiot vaativat sisäänkirjautumisen.
-
-# Oskari
-
-Oskari on sovellus, joka pitää kirjaa rekisteröityneiden käyttäjien tekemistä osakekaupoista. Käyttäjä voi luoda itselleen salkkuja minne he voivat kirjata tekemiään kauppoja (ostoja sekä myyntejä). Ensin kirjataan osto, jonka jälkeen voidaan kirjata myynti. Jotta sovellus/tietokanta ei paisuisi liian monimutkaiseksi, niin kaupat käsitellään aina kokonaisina eli käyttäjä ei voi myydä osaa osakkeista, vaan tapahtumat käsitellään aina kauppatapahtumana, eli osto- ja myyntimäärät ovat aina yhtä suuria (osakkeitten lkm). Käyttäjälle tai salkulle lasketaan erilaisia yhteenvetoja.
-
-Käyttäjä voi myös kuulua 0..* ryhmään. Samassa ryhmässä olevat voivat tarkastella toistensa salkkuja (sekä niiden tapahtumia?).
-
-CRUD-tauluja ovat siis User, Portfolio sekä Trade, Nämä myös aina liittyvät toisiinsa. Monesta moneen yhteys on tauluilla User ja Group, joka myöskin voi olla CRUD-taulu.
-
-Stock-taulussa on kaikkien tunnettujen yritysten tiedot, nimi sekä kaupankäyntitunnus. Nämä ovat erillisessä taulussa, jotta niitä olisi helppo päivittää tarvittaessa, esim nimi muuttuu tai mahdollisesti lisätä lisää attribuutteja. Jokaiseen kauppaan(Trade) kuuluu aina yksi Stock, mutta Stock voi tietysti kuulua äärettömän moneen Trade:iin. En ole varma kuuluisiko tässä välissä olla (aito) liitostaulu, kyllä kai?
 
 ### Asennusohje
 [Asennus- sekä käyttöohje](https://github.com/kordaniel/oskari/tree/master/documentation/user_guide.md)  
@@ -60,12 +52,13 @@ Alkuperäiset:
   * Sähköposti
 
 * Käyttäjät voivat
-  * Luoda/poistaa salkkuja - salkkuja ei voi poistaa vielä
+  * Luoda/poistaa salkkuja
   * Lisätä osakkeita järjestelmään (jos jää aikaa, niin tämä voidaan korvata sopivalla API:lla)
-  * Hallita omia tietoja - ei vielä toteutettu
+  * Hallita omia tietoja
 
 * Ylläpitäjät voivat
-  * Hallita käyttäjiä (muokata sekä poistaa) - tällä hetkellä vain asettaa/poistaa ylläpitäjän rooli käyttäjille
+  * Hallita käyttäjiä (muokata sekä poistaa)
+  * Muokata osakkeiden tietoja
   * Poistaa osakkeita järjestelmästä
 
 ### Salkku
@@ -75,9 +68,9 @@ Alkuperäiset:
 * Käyttäjä voi kirjata ostoja
 * Käyttäjä voi nähdä mitä osakkeita hän omistaa kyseisenä hetkenä sekä näiden osakkeiden määrän ja ostotapahtuman tiedot salkuittain.
   * Per kauppa
-  * Yhteenveto (osakelajeittain) - ei toteutettu, eikä toteuteta tämän kurssin aikana
+  * Yhteenveto (osakelajeittain) - _ei toteutettu, eikä toteuteta tämän kurssin aikana_
   * Kauppa ei ole valmis, eli salkussa on tiettyä osaketta kun Trade:n attribuutti sellprice on null/negatiivinen
-* Käyttäjä voi myydä (osan) osakkeistaan
+* Käyttäjä voi myydä (osan) osakkeistaan - _kaupat käsitellään tällä hetkellä kokonaisina, eli yksittäisiä osakkeita ei voi myydä_
 * Kauppa on "valmis", kun osake on myyty, silloin lasketaan tuotto (myynti- ja ostohinnan erotus)
 
 ### Kauppatapahtuma koostuu seuraavista tiedoista:
