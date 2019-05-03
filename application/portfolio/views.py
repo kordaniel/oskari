@@ -55,18 +55,11 @@ def portfolios_create():
 @app.route("/portfolios/delete/<portfolio_id>", methods=["DELETE"])
 @login_required()
 def portfolios_delete(portfolio_id):
+    # TODO: ADD CREDENTIALS CHECKING
     portfolio = Portfolio.query.get(portfolio_id)
-    #user_id = portfolio.user_id
-    print("*_*_*_"*100)
+
     if portfolio is not None:
-        for trade in portfolio.trades:
-            db.session.delete(trade)
         db.session.delete(portfolio)
         db.session.commit()
-    
-    #if portfolio is not None:
-    #    print("deleting portfolio ", portfolio.id)
-    #    print(portfolio.name)
-    #else:
-    #    print("ERROR")
+
     return redirect(url_for("current_user_portfolios"))
