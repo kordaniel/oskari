@@ -28,7 +28,7 @@ Stock-taulussa on kaikkien tunnettujen yritysten tiedot, nimi sekä kaupankäynt
 [Kaikki käyttäjät](https://github.com/kordaniel/oskari/tree/master/documentation/user_stories.md)  
 
 ### Jatkokehitysideat
-[TODO](https://github.com/kordaniel/oskari/tree/master/documentation/todo.md)  
+[TODO sekä ajatuksia](https://github.com/kordaniel/oskari/tree/master/documentation/todo.md)  
 
 ## Toimintoja
 * Sovellukseen voi lisätä osakkeita, joilla on attribuutit nimi sekä ticker (uniikki lyhenne)
