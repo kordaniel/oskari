@@ -5,8 +5,8 @@ from sqlalchemy.sql import text
 
 class Portfolio(Base):
 
-    account_id = db.Column(db.Integer, db.ForeignKey('account.id'),
-        nullable=False)
+    account_id = db.Column(db.Integer, 
+        db.ForeignKey('account.id', ondelete='CASCADE'), nullable=False)
     trades = db.relationship("Trade", backref="portfolio", 
         passive_deletes=True, lazy = True)
 

@@ -2,7 +2,7 @@ from application import db
 from application.models import Base
 
 user_role = db.Table("userrole",
-    db.Column("user_id", db.Integer, db.ForeignKey("account.id")),
+    db.Column("user_id", db.Integer, db.ForeignKey("account.id", ondelete="CASCADE")),
     db.Column("role_id", db.Integer, db.ForeignKey("role.id")))
 
 class Role(Base):
@@ -26,9 +26,10 @@ class User(Base):
     email = db.Column(db.String(144), unique=True, nullable=False)
 
     roles = db.relationship("Role", secondary=user_role, lazy="subquery",
-        backref=db.backref("users", lazy=True))
+        backref=db.backref("users", passive_deletes=True, lazy=True))
     
-    portfolios = db.relationship("Portfolio", backref="account", lazy=True)
+    portfolios = db.relationship("Portfolio", backref="account", 
+        passive_deletes=True, lazy=True)
 
     def __init__(self, name, username, password, email):
         self.name = name
