@@ -7,7 +7,7 @@ from application.stocks.forms import StockForm
 
 @app.route("/stocks/<int:page>", methods=["GET"])
 def stocks_index(page=1):
-    per_page=10
+    per_page=30
     return render_template("stocks/list.html", 
         stocks = Stock.query.order_by(Stock.name).paginate(page, per_page, error_out=False))
 

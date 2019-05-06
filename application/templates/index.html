@@ -2,7 +2,13 @@
 
 {% block body %}
   <h1>Oskari!</h1>
-  <p>
-    You are free to use this application, without any charges. But beware, <strong>PASSWORDS ARE STORED IN <em>PLAINTEXT</em>, SO DO <em>NOT</em> USE ANY PASSWORDS THAT ARE USED ANYWHERE ELSE!!!111</strong>
-  </p>
+
+  <div class="col-sm-10 form-group-lg">
+      <p>This is a webpage for you to keep track of your investements. If you <a href="{{ url_for('auth_register') }}">register</a> an account you can create portfolios and store all your trades in them.</p>
+  </div>
+  
+  <div class="col-sm-10 form-group-lg">
+      <p>You are free to use this application, without any charges.</p>
+  </div>
+
 {% endblock %}

@@ -5,11 +5,11 @@ from application.auth.models import User
 class LoginForm(FlaskForm):
     username = StringField("Username", [
         validators.DataRequired(message=("Username required")),
-        validators.Length(min=5, max=80, message=("Enter your username"))
+        validators.Length(min=5, max=24, message=("Enter your username"))
     ])
     password = PasswordField("Password", [
         validators.DataRequired(message=("Password required")),
-        validators.Length(min=5, max=80, message=("Enter your password"))
+        validators.Length(min=8, max=40, message=("Enter your password"))
     ])
 
     class Meta:
@@ -27,11 +27,11 @@ class NewUserForm(FlaskForm):
     ])
     username = StringField("Username", [
         validators.DataRequired(message=("Username cannot be empty")),
-        validators.Length(min=5, max=80, message=("Username must be [5-80] characters long"))
+        validators.Length(min=5, max=24, message=("Username must be 5-24 characters long"))
     ])
     password = PasswordField("Password", [
         validators.DataRequired(message=("Password cannot be empty")),
-        validators.Length(min=5, max=80, message=("Password must be [5-80] characters long"))
+        validators.Length(min=8, max=40, message=("Password must be 8-40 characters long"))
     ])
     confirm = PasswordField("Confirm Password", [
         validators.EqualTo("password", message=("Passwords must match"))
@@ -62,7 +62,7 @@ class EditUserForm(FlaskForm):
     ])
     username = StringField("Username", [
         validators.DataRequired(message=("Username cannot be empty")),
-        validators.Length(min=5, max=80, message=("Username must be [5-80] characters long"))
+        validators.Length(min=5, max=24, message=("Username must be 5-24 characters long"))
     ])
     id = HiddenField("User ID", [
         validators.DataRequired(message=("ID missing"))
@@ -90,7 +90,7 @@ class EditUserPasswordForm(FlaskForm):
     ])
     new_password = PasswordField("New password", [
         validators.DataRequired(message=("Password cannot be empty")),
-        validators.Length(min=5, max=80, message=("Password must be [5-80] characters long"))
+        validators.Length(min=8, max=40, message=("Password must be 8-40 characters long"))
     ])
     confirm_password = PasswordField("Confirm Password", [
         validators.EqualTo("new_password", message=("Passwords must match"))

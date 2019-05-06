@@ -14,8 +14,10 @@ def auth_login():
     if not form.validate():
         return render_template("auth/loginform.html", form = form)
 
-    user = User.query.filter_by(username=form.username.data, password=form.password.data).first()
-    if not user:
+    #user = User.query.filter_by(username=form.username.data, password=form.password.data).first()
+    user = User.query.filter_by(username=form.username.data).first()
+    
+    if not user or not user.check_password(form.password.data):
         return render_template("auth/loginform.html", form = form, error = "No such username or password")
 
     login_user(user)
@@ -94,12 +96,11 @@ def auth_change_password(user_id):
     
     user = User.query.get(user_id)
     
-    if form.old_password.data != user.password:
+    if not user.check_password(form.old_password.data):
         form.old_password.errors.append("Invalid password")
         return render_template("auth/edit_password.html", form = form)
 
-    user.password = form.new_password.data
-
+    user.set_password(form.new_password.data)
     db.session.commit()
 
     return render_template("users/user.html", user = user)

@@ -8,7 +8,7 @@ from application.auth.models import User, Role
 @app.route("/users/<int:page>", methods=["GET"])
 @login_required(role="ADMIN")
 def users_index(page=1):
-    per_page=5
+    per_page=30
     return render_template("/users/all_users.html", 
         users = User.query.order_by(User.name).paginate(page, per_page, error_out=False))
 

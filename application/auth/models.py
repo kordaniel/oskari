@@ -1,3 +1,4 @@
+from werkzeug.security import generate_password_hash, check_password_hash
 from application import db
 from application.models import Base
 
@@ -21,8 +22,8 @@ class User(Base):
     __tablename__ = "account"
 
     name = db.Column(db.String(144), nullable=False)
-    username = db.Column(db.String(80), unique=True, nullable=False)
-    password = db.Column(db.String(80), nullable=False)
+    username = db.Column(db.String(24), unique=True, nullable=False)
+    password_hash = db.Column(db.String(128), nullable=False)
     email = db.Column(db.String(144), unique=True, nullable=False)
 
     roles = db.relationship("Role", secondary=user_role, lazy="subquery",
@@ -34,8 +35,8 @@ class User(Base):
     def __init__(self, name, username, password, email):
         self.name = name
         self.username = username
-        self.password = password
         self.email = email
+        self.set_password(password)
 
     def get_id(self):
         return self.id
@@ -48,6 +49,12 @@ class User(Base):
 
     def is_authenticated(self):
         return True
+    
+    def set_password(self, password):
+        self.password_hash = generate_password_hash(password)
+    
+    def check_password(self, password):
+        return check_password_hash(self.password_hash, password)
     
     def is_superuser(self):
         su_role = Role.query.filter_by(superuser=True).first()
