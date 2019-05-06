@@ -19,7 +19,7 @@
       <tr>
         <td>{{ user.name }}</td>
         <td><a href="{{ url_for('user_view', user_id=user.id) }}">{{ user.username }}</a></td>
-        <td>{{ user.email }}</td>
+        <td><a href="mailto:{{ user.email }}">{{ user.email }}</a></td>
         <td>{{ user.is_superuser() }}</td>
         {% if user.get_id() != 1 and current_user.is_authenticated and current_user.is_superuser() %}
         <td>
