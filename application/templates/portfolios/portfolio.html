@@ -134,7 +134,19 @@
         <th>Price sold</th>
         <th>Sell date</th>
         <th>Current price</th>
-        <th>Total return</th>
+        <th>Total return:</th>
+        <th></th>
+      </tr>
+      <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>{{ portfolio.closed_trades_total_return() }}</td>
       </tr>
       {% for trade in portfolio.closed_trades() %}
       <tr>

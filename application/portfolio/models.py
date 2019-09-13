@@ -93,6 +93,24 @@ class Portfolio(Base):
             response.append(row_data)
 
         return response
+    
+    def closed_trades_total_return(self):
+        stmt = text("SELECT ROUND(SUM((Trade.sellprice - Trade.buyprice) * Trade.amount)::numeric, 2) AS total_return"
+                    " FROM Trade"
+                    " WHERE Trade.portfolio_id = :portfolio_id"
+                    " AND Trade.sellprice IS NOT null"
+                    ).params(portfolio_id=self.id)
+        
+        if app.config["SQLALCHEMY_DATABASE_URI"].startswith("sqlite"):
+            stmt = text("SELECT ROUND(SUM((Trade.sellprice - Trade.buyprice) * Trade.amount), 2) AS total_return"
+                        " FROM Trade"
+                        " WHERE Trade.portfolio_id = :portfolio_id"
+                        " AND Trade.sellprice IS NOT null"
+                        ).params(portfolio_id=self.id)
+        
+        res = db.engine.execute(stmt)
+
+        return res.first()["total_return"]
 
 #    @staticmethod
 #    def find_all_portfolios():
