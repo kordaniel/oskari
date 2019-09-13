@@ -21,15 +21,6 @@ def trade_create(portfolio_id):
     if stock is None:
         return render_template("portfolios/portfolio.html", portfolio = portfolio, form = form)
     
-    print("="*40)
-    print("="*40)
-    print(form)
-    print(form.date)
-    print(form.date.data)
-    print(form.date.data.strftime('%Y-%m-%d'))
-    print("="*40)
-    print("="*40)
-
     trade = Trade()
 
     trade.portfolio_id = portfolio_id
