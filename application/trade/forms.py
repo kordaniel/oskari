@@ -20,7 +20,7 @@ class StockListForm(FlaskForm):
         self.stocks.choices = Stock.find_all_stocks_alphabetically()
     
     class Meta:
-        csrd = False
+        csrf = False
 
 class TradeForm(FlaskForm):
     stocks = SelectField("Select stock", [
@@ -51,7 +51,7 @@ class CloseTradeForm(FlaskForm):
     sellprice = DecimalFieldWithDotAndCommas("Sell Price", [
         validators.NumberRange(min=0)],
         render_kw={"placeholder": "1.234"})
-    selldate = DateField("DateTime")
+    selldate = DateField("DateTime", format="%Y-%m-%d")
 
     portfolio_id = HiddenField("Portfolio ID", [
         validators.DataRequired(message=("Missing portfolio ID"))

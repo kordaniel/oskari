@@ -21,11 +21,22 @@ def trade_create(portfolio_id):
     if stock is None:
         return render_template("portfolios/portfolio.html", portfolio = portfolio, form = form)
     
+    print("="*40)
+    print("="*40)
+    print(form)
+    print(form.date)
+    print(form.date.data)
+    print(form.date.data.strftime('%Y-%m-%d'))
+    print("="*40)
+    print("="*40)
+
     trade = Trade()
 
     trade.portfolio_id = portfolio_id
     trade.amount = form.amount.data
     trade.buyprice = form.price.data
+    trade.date_created = form.date.data
+    trade.date_modified = form.date.data
     
     trade.stocks.append(stock)
     db.session.add(trade)
@@ -50,7 +61,6 @@ def trade_finish():
 @app.route("/trade/close/<trade_id>", methods = ["POST"])
 @login_required()
 def trade_close(trade_id):
-    # fix set sell_date, now only flask updates date_modified
     trade = Trade.query.get(trade_id)
     form = CloseTradeForm(request.form)
 
@@ -59,6 +69,7 @@ def trade_close(trade_id):
             form = form, trade = trade)
     
     trade.sellprice = form.sellprice.data
+    trade.date_modified = form.selldate.data
 
     db.session().commit()
 

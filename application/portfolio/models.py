@@ -24,13 +24,25 @@ class Portfolio(Base):
     
     def open_trades(self):
         stmt = text("SELECT Stock.ticker, Stock.name, Trade.id,"
-                    " Trade.date_created AS buydate,  Trade.amount, Trade.buyprice"
+                    " to_char(Trade.date_created::date, 'dd.mm.YYYY') AS buydate,  Trade.amount, Trade.buyprice"
                     " FROM Trade, Tradestock, Stock"
                     " WHERE Trade.portfolio_id = :portfolio_id"
                     " AND Trade.sellprice IS null"
                     " AND Trade.id = Tradestock.trade_id"
                     " AND Tradestock.stock_id = Stock.id"
                     ).params(portfolio_id=self.id)
+        if app.config["SQLALCHEMY_DATABASE_URI"].startswith("sqlite"):
+            # using sqlite, need to use differnet query
+            # this is probably an dumb way to do this, but...
+            stmt = text("SELECT Stock.ticker, Stock.name, Trade.id,"
+                        " strftime('%d-%m-%Y', Trade.date_created, 'localtime') AS buydate,  Trade.amount, Trade.buyprice"
+                        " FROM Trade, Tradestock, Stock"
+                        " WHERE Trade.portfolio_id = :portfolio_id"
+                        " AND Trade.sellprice IS null"
+                        " AND Trade.id = Tradestock.trade_id"
+                        " AND Tradestock.stock_id = Stock.id"
+                        ).params(portfolio_id=self.id)
+        
         res = db.engine.execute(stmt)
         
         response = []
@@ -45,8 +57,9 @@ class Portfolio(Base):
 
     def closed_trades(self):
         stmt = text("SELECT Stock.ticker, Stock.name,"
-                    " Trade.date_created AS buydate, Trade.date_modified AS selldate, Trade.amount,"
-                    " Trade.buyprice, Trade.sellprice,"
+                    " to_char(Trade.date_created::date, 'dd.mm.YYYY') AS buydate,"
+                    " to_char(Trade.date_modified::date, 'dd.mm.YYYY') AS selldate,"
+                    " Trade.amount, Trade.buyprice, Trade.sellprice,"
                     " ROUND(((Trade.sellprice - Trade.buyprice) * Trade.amount)::numeric, 2) AS total_return"
                     " FROM Trade, Tradestock, Stock"
                     " WHERE Trade.portfolio_id = :portfolio_id"
@@ -57,11 +70,10 @@ class Portfolio(Base):
         
         
         if app.config["SQLALCHEMY_DATABASE_URI"].startswith("sqlite"):
-            # using sqlite, need to use differnet query
-            # this is probably an dumb way to do this, but...
             stmt = text("SELECT Stock.ticker, Stock.name,"
-                        " Trade.date_created AS buydate, Trade.date_modified AS selldate, Trade.amount,"
-                        " Trade.buyprice, Trade.sellprice,"
+                        " strftime('%d-%m-%Y', Trade.date_created, 'localtime') AS buydate,"
+                        " strftime('%d-%m-%Y', Trade.date_modified, 'localtime') AS selldate,"
+                        " Trade.amount, Trade.buyprice, Trade.sellprice,"
                         " ROUND(((Trade.sellprice - Trade.buyprice) * Trade.amount), 2) AS total_return"
                         " FROM Trade, Tradestock, Stock"
                         " WHERE Trade.portfolio_id = :portfolio_id"
